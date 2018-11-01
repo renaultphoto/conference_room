@@ -1,5 +1,6 @@
 # 极简会议室预约系统
-###系统功能
+### 系统功能
+
 基础功能
 > 1、登录
 > 2、注册
@@ -22,11 +23,12 @@
 > 3、代用户注册
 > 4、查看会议室预约情况——日程表形式
 
-###系统数据表示意
+### 系统数据表示意
+![数据示意图.png](doc/snapshot/数据示意图.png)
 
-###系统截图
+### 系统截图
 1、游客
-![file-list](https://www.zybuluo.com/static/img/file-list.png)
+![file-list](doc/snapshot/img/file-list.png)
 2、员工
 ![file-list](https://www.zybuluo.com/static/img/file-list.png)
 3、管理员
@@ -36,4 +38,4 @@
 2、修改数据库链接设置
 3、本项目采用maven管理项目，如果项目运行报Spring错，请检查自己maven导入jar中是否有个Maven:org.springframework: spring-2.5.6.SEC03.jar，如果有，删之。
 
-###[更新记录](https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#9-甘特图)
+### [更新记录](UPDATE.md)

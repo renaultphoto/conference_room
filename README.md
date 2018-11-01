@@ -2,7 +2,8 @@
 ### 系统功能
 
 基础功能
-> 1、登录
+ > 1、登录
+ 
 > 2、注册
 > 3、退出
 
@@ -43,8 +44,8 @@
 ![预约记录_日程表展示](doc/snapshot/预约记录_日程表展示.png)
 
 ### 系统运行
-1、创建conference_room数据库，导入sql
-2、修改数据库链接设置
-3、本项目采用maven管理项目，如果项目运行报Spring错，请检查自己maven导入jar中是否有个Maven:org.springframework: spring-2.5.6.SEC03.jar，如果有，删之。
+> 1、创建conference_room数据库，导入sql
+> 2、修改数据库链接设置
+> 3、本项目采用maven管理项目，如果项目运行报Spring错，请检查自己maven导入jar中是否有个Maven:org.springframework: spring-2.5.6.SEC03.jar，如果有，删之。
 
 ### [更新记录](UPDATE.md)

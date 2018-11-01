@@ -80,10 +80,10 @@ public class LoginRealm extends AuthorizingRealm{
 
         if (user == null) {
             //没有该用户名
-            throw new UnknownAccountException();
+            throw new UnknownAccountException("没有该用户名");
         } else if (!password.equals(user.getPassword())) {
             //密码错误
-            throw new IncorrectCredentialsException();
+            throw new IncorrectCredentialsException("密码错误");
         }
 
         //身份验证通过,返回一个身份信息

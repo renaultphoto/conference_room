@@ -71,6 +71,12 @@ public class ReservationServiceImpl implements ReservationService {
         List<ReservationVo> list = reservationMapper.findAllByPaging(pagingVO);
         return list;
     }
+    @Override
+    public List<ReservationVo> findAllList(){
+        List<ReservationVo> list = reservationMapper.findAllList();
+        return list;
+    }
+
 
     @Override
     public void addReservation(ReservationCustom reservationCustom) throws Exception {

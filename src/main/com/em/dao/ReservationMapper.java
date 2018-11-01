@@ -27,6 +27,12 @@ public interface ReservationMapper {
 
     public List<ReservationVo> findAllByPaging(PagingVO pagingVO);
 
+    /**
+     * 查询所有的列表
+     * @return
+     */
+    public List<ReservationVo> findAllList();
+
     public void addReservation(ReservationCustom reservationCustom);
 
     public List<ReservationVo> queryByUser(String name);

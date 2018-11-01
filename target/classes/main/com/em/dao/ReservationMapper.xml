@@ -3,31 +3,37 @@
 
 <mapper namespace="main.com.em.dao.ReservationMapper">
     <select id="reservationCount" resultType="int">
-        SELECT count(*) FROM reservation a WHERE date>CURDATE() AND a.mark='待审核'
+        SELECT count(*) FROM reservation a WHERE a.mark='待审核'
     </select>
 
     <select id="reserveCount" resultType="int">
-        SELECT count(*) FROM reservation a WHERE date>CURDATE() AND mark!='取消申请'
+        SELECT count(*) FROM reservation a WHERE  mark!='取消申请'
     </select>
 
     <select id="findByPaging" parameterType="main.com.em.domain.PagingVO" resultType="main.com.em.domain.ReservationVo">
         SELECT a.id,b.`name` ,a.date,a.begintime,a.endtime,a.`user`,a.mobile,a.mark FROM reservation a
         LEFT JOIN room b on a.room_id=b.id
-        WHERE date>CURDATE() AND a.mark='待审核' ORDER BY id
+        WHERE  a.mark='待审核' ORDER BY id
         limit #{toPageNo}, #{pageSize}
     </select>
 
     <select id="findAllByPaging" parameterType="main.com.em.domain.PagingVO" resultType="main.com.em.domain.ReservationVo">
         SELECT a.id,b.`name` ,a.date,a.begintime,a.endtime,a.`user`,a.mobile,a.mark FROM reservation a
         LEFT JOIN room b on a.room_id=b.id
-        WHERE date>CURDATE() AND mark!='取消申请' ORDER BY date DESC
+        WHERE  mark!='取消申请' ORDER BY date DESC
         limit #{toPageNo}, #{pageSize}
+    </select>
+
+    <select id="findAllList" resultType="main.com.em.domain.ReservationVo">
+        SELECT a.id,b.`name` ,a.date,a.begintime,a.endtime,a.`user`,a.mobile,a.mark FROM reservation a
+        LEFT JOIN room b on a.room_id=b.id
+        WHERE  mark!='取消申请' ORDER BY date DESC
     </select>
 
     <select id="findByName" parameterType="string" resultType="main.com.em.domain.ReservationVo">
         SELECT a.id,b.`name` ,a.date,a.begintime,a.endtime,a.`user`,a.mobile,a.mark FROM reservation a
         LEFT JOIN room b on a.room_id=b.id
-        WHERE date>CURDATE() AND a.mark='待审核' AND a.user LIKE '%${value}%' ORDER BY id
+        WHERE  a.mark='待审核' AND a.user LIKE '%${value}%' ORDER BY id
     </select>
 
     <select id="reservationPassCount" resultType="int">
@@ -44,7 +50,7 @@
     <select id="queryByUser" parameterType="string" resultType="main.com.em.domain.ReservationVo">
         SELECT a.id,b.`name` ,a.date,a.begintime,a.endtime,a.`user`,a.mobile,a.mark FROM reservation a
         LEFT JOIN room b on a.room_id=b.id
-        WHERE date>CURDATE() AND a.user LIKE '%${value}%' ORDER BY date DESC
+        WHERE  a.user LIKE '%${value}%' ORDER BY date DESC
     </select>
 
     <update id="reviewReservation" parameterType="int">
@@ -53,7 +59,7 @@
 
     <insert id="addReservation" parameterType="main.com.em.domain.ReservationCustom">
         INSERT INTO reservation(user,mobile,date,begintime,endtime,mark,room_id)
-        SELECT #{user},#{mobile},#{date},#{beginTime},#{endTime},'待审核',id FROM room WHERE name=#{name}
+        SELECT #{user},#{mobile},#{date},#{beginTime},#{endTime},'审核通过',id FROM room WHERE name=#{name}
     </insert>
 
     <select id="findByUser" parameterType="string" resultType="main.com.em.domain.ReservationCustom">

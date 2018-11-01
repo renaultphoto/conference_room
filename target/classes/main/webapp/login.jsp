@@ -42,8 +42,9 @@
 				    </div>
 				  </div>
 				  <div class="form-group pull-right" style="margin-right: 15px;">
-				    <div class="col-sm-offset-2 col-sm-10">
+				    <div class="">
 				      <button type="submit" class="btn btn-default btn-info">登录</button>
+						<button type="button" class="btn btn-default btn-info" onclick="javascript:window.location.href='${pageContext.request.contextPath}/public/userRegister'">注册</button>
 				    </div>
 				  </div>
 				</form>

@@ -62,6 +62,11 @@ public interface ReservationService {
      * @return
      */
     public List<ReservationVo> findAllByPaging(Integer toPageNo) throws Exception;
+    /**
+     * 查询所有已被预约的会议室记录
+     * @return
+     */
+    public List<ReservationVo> findAllList();
 
     /**
      * 添加会议室预约

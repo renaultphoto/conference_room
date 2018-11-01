@@ -8,5 +8,6 @@
 </head>
 <body>
     <h1>${message}</h1>
+<a href="${pageContext.request.contextPath}/login">返回登录</a>
 </body>
 </html>

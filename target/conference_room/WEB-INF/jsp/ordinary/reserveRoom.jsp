@@ -136,7 +136,7 @@
                             <label for="inputPassword3" class="col-sm-2 control-label" name="endTime">结束时间</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="endTime">
-                                    <option >9:00:00</option>
+                                    <option value="">9:00:00</option>
                                     <option >9:30:00</option>
                                     <option >10:00:00</option>
                                     <option >10:30:00</option>

@@ -99,7 +99,7 @@
 	</div>
 </body>
 	<script type="text/javascript">
-		$("#nav li:nth-child(2)").addClass("active")
+		$("#nav li:nth-child(3)").addClass("active")
 
         <c:if test="${pagingVO != null}">
 			if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {

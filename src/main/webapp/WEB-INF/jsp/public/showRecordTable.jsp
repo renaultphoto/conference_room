@@ -33,6 +33,7 @@
 
 	</style>
 	<script>
+            $("#nav li:nth-child(1)").addClass("active")
         var getAjaxFun = function (url, data, method) {
             $.ajax({
                 async: false,

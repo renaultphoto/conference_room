@@ -64,7 +64,6 @@
 </div>
 </body>
 <script>
-	$("#nav li:nth-child(4)").addClass("active")
 
 	function check() {
 		if(newUser.id.value==""||newUser.id.value==null)

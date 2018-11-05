@@ -92,7 +92,7 @@
 </body>
 	<script type="text/javascript">
 		<%--设置菜单中选中背景色改变,不同导航栏,nth-child(1)中参数1不可重复--%>
-		$("#nav li:nth-child(1)").addClass("active")
+		$("#nav li:nth-child(2)").addClass("active")
 
         <c:if test="${pagingVO != null}">
         if (${pagingVO.curentPageNo} == ${pagingVO.totalCount}) {

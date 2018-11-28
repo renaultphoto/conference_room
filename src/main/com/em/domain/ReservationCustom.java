@@ -1,10 +1,11 @@
 package main.com.em.domain;
 
 /**
- * Created by Admiral on 2018/1/20.
+ * Created by renaultZhou on 2018/11/28.
+ * Reservation的扩展类
  */
-//Reservation的扩展类
 public class ReservationCustom extends Reservation {
+    //会议室名称
     private String name;
 
     public String getName() {

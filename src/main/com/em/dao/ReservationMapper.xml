@@ -58,8 +58,8 @@
     </update>
 
     <insert id="addReservation" parameterType="main.com.em.domain.ReservationCustom">
-        INSERT INTO reservation(user,mobile,date,begintime,endtime,mark,room_id)
-        SELECT #{user},#{mobile},#{date},#{beginTime},#{endTime},'审核通过',id FROM room WHERE name=#{name}
+        INSERT INTO reservation(room_id,user,mobile,title,attendPerson,content,begintime,endtime,date,mark,extend1,extend2,extend3)
+        value (#{room_id},#{user},#{mobile},#{title},#{attendPerson},#{content},#{beginTime},#{endTime},#{date},#{mark},#{extend1},#{extend2},#{extend3})
     </insert>
 
     <select id="findByUser" parameterType="string" resultType="main.com.em.domain.ReservationCustom">

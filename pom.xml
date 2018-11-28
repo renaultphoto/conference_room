@@ -47,7 +47,7 @@
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.15</version>
+      <version>1.2.17</version>
     </dependency>
 
     <!--Spring框架整合Junit-->
@@ -193,6 +193,7 @@
       <version>RELEASE</version>
     </dependency>
 
+
     <!--导入Servlet-->
    <!-- <dependency>
       <groupId>javax.servlet</groupId>
@@ -235,6 +236,10 @@
 
     <!--Json相关Jar包-->
     <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>2.6.2</version>
@@ -271,6 +276,11 @@
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-spring</artifactId>
       <version>1.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.7</version>
     </dependency>
   </dependencies>
   <build>

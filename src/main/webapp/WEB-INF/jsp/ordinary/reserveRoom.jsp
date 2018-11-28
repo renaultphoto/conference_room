@@ -16,11 +16,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 引入bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <!-- 引入JQuery  bootstrap.js-->
     <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <!-- 引入日期控件-->
+    <script src="${pageContext.request.contextPath}/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
+
 
 </head>
 <body>
@@ -60,9 +66,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">会议室名称</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="inputPassword3" name="name">
+                                <select class="form-control" id="inputPassword3" name="roomId">
                                     <c:forEach items="${nameList}" var="item">
-                                        <option value="${item.name}">${item.name}</option>
+                                        <option value="${item.id}">${item.name}</option>
                                     </c:forEach>
                                 </select>
                                 <%--<input type="text" class="form-control" id="inputPassword3" name="name" placeholder="请输入会议室名称">--%>
@@ -106,6 +112,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="dtp_input3" class="col-md-2 control-label">Time Picking</label>
+                            <div class="input-group date form_time col-md-5" data-date="" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd hh:ii:00">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input3" value="" /><br/>
+                        </div>
+
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label" name="beginTime">开始时间</label>
                             <div class="col-sm-10">
@@ -205,5 +221,16 @@
     $("#sub").click(function () {
         $("#form1").submit();
     });
+        $('.form_time').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,
+            minView: 0,
+            maxView: 1,
+            forceParse: 0
+        });
 </script>
 </html>

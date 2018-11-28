@@ -109,8 +109,8 @@ public class PublicController {
         for(ReservationVo vo :list){
             CalendarViewVO vVo = new CalendarViewVO();
             vVo.setId(vo.getId());
-            vVo.setStart(covert.convertToYMDString(vo.getDate()).concat(" ").concat(covert.convertTohmsString(vo.getBeginTime())));
-            vVo.setEnd(covert.convertToYMDString(vo.getDate()).concat(" ").concat(covert.convertTohmsString(vo.getEndTime())));
+            vVo.setStart(covert.convertToYMDString(vo.getBeginTime()));
+            vVo.setEnd(covert.convertToYMDString(vo.getEndTime()));
             vVo.setUrl("#");
             vVo.setTitle(vo.getName());
             listTemp.add(vVo);

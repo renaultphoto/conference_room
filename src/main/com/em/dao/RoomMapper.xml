@@ -28,9 +28,9 @@
             </if>
         </where>
     </select>
-    <!--获取所有会议室的名字-->
+    <!--获取所有会议室-->
     <select id="nameList" resultType="main.com.em.domain.Room">
-        SELECT a.name FROM room a
+        SELECT a.id,a.name FROM room a
     </select>
 
     <update id="updateById" parameterType="main.com.em.domain.Room">

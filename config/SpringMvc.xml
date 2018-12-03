@@ -18,7 +18,7 @@
     <mvc:default-servlet-handler/>
 
     <!--配置@Controller注解扫描-->
-    <context:component-scan base-package="main.com.em.controller"></context:component-scan>
+    <context:component-scan base-package="main.com.chemcn.ec.controller"></context:component-scan>
 
     <!--注解驱动：
         自动配置最新版的注解的处理器映射器和处理器适配器-->
@@ -42,7 +42,7 @@
         <property name="converters">
             <set>
                 <!-- 指定自定义转换器的全路径名称 -->
-                <bean class="main.com.em.controller.converter.StringToDateConverter"/>
+                <bean class="main.com.chemcn.ec.utils.StringToDateConverter"/>
             </set>
         </property>
     </bean>

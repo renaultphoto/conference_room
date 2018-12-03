@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="main.com.chemcn.ec.dao.RoomMapper">
+    <resultMap type="main.com.chemcn.ec.entity.Room" id="RoomEntity">
+        <result property="id" column="id" />
+        <result property="roomName" column="room_name" />
+        <result property="description" column="description" />
+        <result property="roomImg" column="room_img" />
+        <result property="equipment" column="equipment" />
+        <result property="extends1" column="extends1" />
+        <result property="extends2" column="extends2" />
+        <result property="extends3" column="extends3" />
+    </resultMap>
+
+    <select id="roomCount" resultType="int"  parameterType="hashmap">
+        select
+        count(*) from room
+        <where>
+            <if test="id!=null and id!=''">and  id=#{id}</if>
+            <if test="roomName!=null and roomName!=''">and  room_name=#{roomName}</if>
+            <if test="description!=null and description!=''">and  description=#{description}</if>
+            <if test="roomImg!=null and roomImg!=''">and  room_img=#{roomImg}</if>
+            <if test="equipment!=null and equipment!=''">and  equipment=#{equipment}</if>
+            <if test="extends1!=null and extends1!=''">and  extends1=#{extends1}</if>
+            <if test="extends2!=null and extends2!=''">and  extends2=#{extends2}</if>
+            <if test="extends3!=null and extends3!=''">and  extends3=#{extends3}</if>
+        </where>
+    </select>
+
+
+
+    <select id="findRecords" parameterType="hashmap" resultType="main.com.chemcn.ec.entity.Room">
+        select
+        id as "id"
+        ,   room_name as "roomName"
+        ,   description as "description"
+        ,   room_img as "roomImg"
+        ,   equipment as "equipment"
+        ,   extends1 as "extends1"
+        ,   extends2 as "extends2"
+        ,   extends3 as "extends3"
+        from room
+        <where>
+            <if test="id!=null and id!=''">and  id=#{room.id}</if>
+            <if test="roomName!=null and roomName!=''">and  room_name=#{room.roomName}</if>
+            <if test="description!=null and description!=''">and  description=#{room.description}</if>
+            <if test="roomImg!=null and roomImg!=''">and  room_img=#{room.roomImg}</if>
+            <if test="equipment!=null and equipment!=''">and  equipment=#{room.equipment}</if>
+            <if test="extends1!=null and extends1!=''">and  extends1=#{room.extends1}</if>
+            <if test="extends2!=null and extends2!=''">and  extends2=#{room.extends2}</if>
+            <if test="extends3!=null and extends3!=''">and  extends3=#{room.extends3}</if>
+        </where>
+    </select>
+
+    <select id="findRecordsByPage"  resultMap="RoomEntity">
+        select
+        id as "id"
+        ,   room_name as "roomName"
+        ,   description as "description"
+        ,   room_img as "roomImg"
+        ,   equipment as "equipment"
+        ,   extends1 as "extends1"
+        ,   extends2 as "extends2"
+        ,   extends3 as "extends3"
+        from room
+        <where>
+            <if test="id!=null and id!=''">and  id=#{room.id}</if>
+            <if test="roomName!=null and roomName!=''">and  room_name=#{room.roomName}</if>
+            <if test="description!=null and description!=''">and  description=#{room.description}</if>
+            <if test="roomImg!=null and roomImg!=''">and  room_img=#{room.roomImg}</if>
+            <if test="equipment!=null and equipment!=''">and  equipment=#{room.equipment}</if>
+            <if test="extends1!=null and extends1!=''">and  extends1=#{room.extends1}</if>
+            <if test="extends2!=null and extends2!=''">and  extends2=#{room.extends2}</if>
+            <if test="extends3!=null and extends3!=''">and  extends3=#{room.extends3}</if>
+        </where>
+        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+    </select>
+
+    <insert id="insertRoom" parameterType="main.com.chemcn.ec.entity.Room"  useGeneratedKeys="true" keyProperty="id" >
+		insert  into room (room_name
+						,description
+						,room_img
+						,equipment
+						,extends1
+						,extends2
+						,extends3
+						)
+		values(	#{roomName}
+						,#{description}
+						,#{roomImg}
+						,#{equipment}
+						,#{extends1}
+						,#{extends2}
+						,#{extends3}
+				)
+	</insert>
+
+    <update id="updateRoom" parameterType="main.com.chemcn.ec.entity.Room">
+        update room
+        <set>
+            <if test="roomName!=null ">room_name = #{roomName},</if>
+            <if test="description!=null ">description = #{description},</if>
+            <if test="roomImg!=null ">room_img = #{roomImg},</if>
+            <if test="equipment!=null ">equipment = #{equipment},</if>
+            <if test="extends1!=null ">extends1 = #{extends1},</if>
+            <if test="extends2!=null ">extends2 = #{extends2},</if>
+            <if test="extends3!=null ">extends3 = #{extends3},</if>
+        </set>
+        where
+        id=#{id}
+    </update>
+</mapper>

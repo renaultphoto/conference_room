@@ -25,27 +25,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 
-    <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
-
-
 </head>
 <body>
-<%
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String currDate = dateFormat.format(new Date());
-    List dateList=new ArrayList();
-    for (int i = 0; i < 16; i++) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateFormat.parse(currDate));
-
-        calendar.add(Calendar.DAY_OF_MONTH, i);
-
-        String nextDay= dateFormat.format(calendar.getTime());
-        dateList.add(nextDay);
-    }
-    request.setAttribute("dateList",dateList);
-%>
 <!-- 顶栏 -->
 <jsp:include page="top.jsp"></jsp:include>
 <!-- 中间主体 -->
@@ -65,116 +46,68 @@
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">会议室名称</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
                                 <select class="form-control" id="inputPassword3" name="roomId">
                                     <c:forEach items="${nameList}" var="item">
                                         <option value="${item.id}">${item.name}</option>
                                     </c:forEach>
                                 </select>
-                                <%--<input type="text" class="form-control" id="inputPassword3" name="name" placeholder="请输入会议室名称">--%>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">借用人</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
                                 <input readonly="readonly" type="text" class="form-control" id="inputPassword3-1" name="user"
                                        value=<shiro:principal/>>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label" name="mobile">联系电话</label>
-                            <div class="col-sm-10">
+                            <label for="inputPassword3" class="col-sm-2 control-label" name="mobile">联系电话<span class="muted">*</span></label>
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control" id="inputPassword3-2" name="mobile"
-                                       placeholder="请输入借用人联系电话">
+                                       placeholder="请输入预定联系电话" data-bv-notempty-message="联系电话不能为空" data-bv-regexp-regexp="[0-9]{11}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label" name="title">会议议题</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="title" name="title"
+                                       placeholder="请输入会议议题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label" name="attendPerson">会议参与人</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="attendPerson" name="attendPerson"
+                                       placeholder="请输入会议参与方">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label" name="content">会议内容</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="content" name="content"
+                                       placeholder="请简要输入会议内容">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label" name="date">借用日期</label>
-                            <div  class="col-sm-10">
-                                <%--<input type="date" value="2018-01-01" name="date" />--%>
-                                <select class="form-control" name="date">
-                                    <option>${dateList[0]}</option>
-                                    <option >${dateList[1]}</option>
-                                    <option >${dateList[2]}</option>
-                                    <option >${dateList[3]}</option>
-                                    <option >${dateList[4]}</option>
-                                    <option >${dateList[5]}</option>
-                                    <option >${dateList[6]}</option>
-                                    <option >${dateList[7]}</option>
-                                    <option >${dateList[8]}</option>
-                                    <option >${dateList[9]}</option>
-                                    <option >${dateList[10]}</option>
-                                    <option >${dateList[11]}</option>
-                                    <option >${dateList[12]}</option>
-                                    <option >${dateList[13]}</option>
-                                    <option >${dateList[14]}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="dtp_input3" class="col-md-2 control-label">Time Picking</label>
-                            <div class="input-group date form_time col-md-5" data-date="" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd hh:ii:00">
+                            <label for="beginTime" class="col-sm-2 control-label">开始时间</label>
+                            <div class="col-sm-5 input-group date form_time " data-date="" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="beginTime" data-link-format="yyyy-mm-dd hh:ii:00">
                                 <input class="form-control" size="16" type="text" value="" readonly>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                             </div>
-                            <input type="hidden" id="dtp_input3" value="" /><br/>
+                            <input type="hidden" id="beginTime" name="beginTime" value="" /><br/>
                         </div>
-
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label" name="beginTime">开始时间</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="beginTime">
-                                    <option >9:00:00</option>
-                                    <option >9:30:00</option>
-                                    <option >10:00:00</option>
-                                    <option >10:30:00</option>
-                                    <option >11:00:00</option>
-                                    <option >11:30:00</option>
-                                    <option >12:00:00</option>
-                                    <option >12:30:00</option>
-                                    <option >13:00:00</option>
-                                    <option >13:30:00</option>
-                                    <option >14:00:00</option>
-                                    <option >14:30:00</option>
-                                    <option >15:00:00</option>
-                                    <option >15:30:00</option>
-                                    <option >16:00:00</option>
-                                    <option >16:30:00</option>
-                                    <option >17:00:00</option>
-                                    <option >17:30:00</option>
-                                    <option >18:00:00</option>
-                                </select>
+                        <div class="form-group" >
+                            <label for="endTime" class="col-sm-2 control-label">结束时间</label>
+                            <div class="input-group date form_time col-sm-5 endTime" data-date="" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="endTime" data-link-format="yyyy-mm-dd hh:ii:00">
+                                <input class="form-control" size="16" type="text" value="" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                             </div>
+                            <input type="hidden" id="endTime" name="endTime" value="" /><br/>
                         </div>
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label" name="endTime">结束时间</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="endTime">
-                                    <option value="">9:00:00</option>
-                                    <option >9:30:00</option>
-                                    <option >10:00:00</option>
-                                    <option >10:30:00</option>
-                                    <option >11:00:00</option>
-                                    <option >11:30:00</option>
-                                    <option >12:00:00</option>
-                                    <option >12:30:00</option>
-                                    <option >13:00:00</option>
-                                    <option >13:30:00</option>
-                                    <option >14:00:00</option>
-                                    <option >14:30:00</option>
-                                    <option >15:00:00</option>
-                                    <option >15:30:00</option>
-                                    <option >16:00:00</option>
-                                    <option >16:30:00</option>
-                                    <option >17:00:00</option>
-                                    <option >17:30:00</option>
-                                    <option >18:00:00</option>
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="form-group" style="text-align: center">
                             <button class="btn btn-default" type="submit">提交</button>
                             <button class="btn btn-default" type="reset">重置</button>
@@ -217,11 +150,20 @@
             return false;
         }
     }
-
-    $("#sub").click(function () {
-        $("#form1").submit();
+    //时间选择控件
+    $('.form_time').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
     });
-        $('.form_time').datetimepicker({
+    $(document).ready(function(){
+        $('.endTime').datetimepicker({
             language:  'zh-CN',
             weekStart: 1,
             todayBtn:  1,
@@ -231,6 +173,21 @@
             minView: 0,
             maxView: 1,
             forceParse: 0
+        }).on('hide',function(ev){
+            var beginTime=$("#beginTime").val();
+            var endTime=$("#endTime").val();
+            if(beginTime){
+                if(endTime<=beginTime){
+                    alert("结束时间大于开始时间，请重新选择！");
+                }else{
+                    return;
+                }
+            }else{
+                alert("请选择开始时间！");
+            }
+
         });
+    });
+
 </script>
 </html>

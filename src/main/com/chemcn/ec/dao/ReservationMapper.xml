@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="main.com.chemcn.ec.dao.ReservationMapper">
+    <resultMap type="main.com.chemcn.ec.entity.Reservation" id="ReservationEntity">
+        <result property="id" column="id" />
+        <result property="roomId" column="room_id" />
+        <result property="userId" column="user_id" />
+        <result property="mobile" column="mobile" />
+        <result property="meettingTitle" column="meetting_title" />
+        <result property="attendPerson" column="attend_person" />
+        <result property="meettingContent" column="meetting_content" />
+        <result property="begintime" column="begintime" />
+        <result property="endtime" column="endtime" />
+        <result property="reservationDate" column="reservation_date" />
+        <result property="status" column="status" />
+        <result property="extend1" column="extend1" />
+        <result property="extend2" column="extend2" />
+        <result property="extend3" column="extend3" />
+    </resultMap>
+
+    <insert id="addReservation" parameterType="main.com.chemcn.ec.entity.Reservation"  useGeneratedKeys="true" keyProperty="id" >
+    insert  into reservation (				id
+                    ,room_id
+                    ,user_id
+                    ,mobile
+                    ,meetting_title
+                    ,attend_person
+                    ,meetting_content
+                    ,begintime
+                    ,endtime
+                    ,reservation_date
+                    ,status
+                    ,extend1
+                    ,extend2
+                    ,extend3
+                    )
+    values(		#{id}
+                    ,#{roomId}
+                    ,#{userId}
+                    ,#{mobile}
+                    ,#{meettingTitle}
+                    ,#{attendPerson}
+                    ,#{meettingContent}
+                    ,#{begintime}
+                    ,#{endtime}
+                    ,#{reservationDate}
+                    ,#{status}
+                    ,#{extend1}
+                    ,#{extend2}
+                    ,#{extend3}
+            )
+    </insert>
+    <update id="updateReservation" parameterType="main.com.chemcn.ec.entity.Reservation">
+        update reservation
+        <set>
+            <if test="roomId!=null ">room_id = #{roomId},</if>
+            <if test="userId!=null ">user_id = #{userId},</if>
+            <if test="mobile!=null ">mobile = #{mobile},</if>
+            <if test="meettingTitle!=null ">meetting_title = #{meettingTitle},</if>
+            <if test="attendPerson!=null ">attend_person = #{attendPerson},</if>
+            <if test="meettingContent!=null ">meetting_content = #{meettingContent},</if>
+            <if test="begintime!=null ">begintime = #{begintime},</if>
+            <if test="endtime!=null ">endtime = #{endtime},</if>
+            <if test="reservationDate!=null ">reservation_date = #{reservationDate},</if>
+            <if test="status!=null ">status = #{status},</if>
+            <if test="extend1!=null ">extend1 = #{extend1},</if>
+            <if test="extend2!=null ">extend2 = #{extend2},</if>
+            <if test="extend3!=null ">extend3 = #{extend3},</if>
+        </set>
+        where
+        id=#{id}
+    </update>
+    <select id="findRecords" resultMap="ReservationEntity" parameterType="hashmap">
+        select
+        id as "id"
+        ,   room_id as "roomId"
+        ,   user_id as "userId"
+        ,   mobile as "mobile"
+        ,   meetting_title as "meettingTitle"
+        ,   attend_person as "attendPerson"
+        ,   meetting_content as "meettingContent"
+        ,   begintime as "begintime"
+        ,   endtime as "endtime"
+        ,   reservation_date as "reservationDate"
+        ,   status as "status"
+        ,   extend1 as "extend1"
+        ,   extend2 as "extend2"
+        ,   extend3 as "extend3"
+        from reservation
+        <where>
+            <if test="id!=null and id!=''">and  id=#{id}</if>
+            <if test="roomId!=null and roomId!=''">and  room_id=#{roomId}</if>
+            <if test="userId!=null and userId!=''">and  user_id=#{userId}</if>
+            <if test="mobile!=null and mobile!=''">and  mobile=#{mobile}</if>
+            <if test="meettingTitle!=null and meettingTitle!=''">and  meetting_title=#{meettingTitle}</if>
+            <if test="attendPerson!=null and attendPerson!=''">and  attend_person=#{attendPerson}</if>
+            <if test="meettingContent!=null and meettingContent!=''">and  meetting_content=#{meettingContent}</if>
+            <if test="begintime!=null and begintime!=''">and  begintime=#{begintime}</if>
+            <if test="endtime!=null and endtime!=''">and  endtime=#{endtime}</if>
+            <if test="reservationDate!=null and reservationDate!=''">and  reservation_date=#{reservationDate}</if>
+            <if test="status!=null and status!=''">and  status=#{status}</if>
+            <if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
+            <if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
+            <if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
+        </where>
+    </select>
+</mapper>

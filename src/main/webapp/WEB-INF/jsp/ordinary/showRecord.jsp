@@ -43,10 +43,11 @@
 									<th>预约编号</th>
 									<th>会议室</th>
 									<th>借用人</th>
-									<th>借用日期</th>
 									<th>开始时间</th>
 									<th>结束时间</th>
-									<th>状态</th>
+									<th>会议标题</th>
+									<th>会议参与人</th>
+									<th>联系方式</th>
 					            </tr>
 					        </thead>
 					        <tbody>
@@ -55,11 +56,11 @@
 									<td>${item.id}</td>
 									<td>${item.name}</td>
 									<td>${item.user}</td>
-									<td><fmt:formatDate value="${item.date}" dateStyle="medium" pattern="yyyy-MM-dd"/></td>
-									<!--pattern="HH:mm:ss"为24小时计时法，pattern="hh:mm:ss"为12小时计时法-->
-									<td><fmt:formatDate value="${item.beginTime}" dateStyle="medium" pattern="HH:mm:ss"/></td>
-									<td><fmt:formatDate value="${item.endTime}" dateStyle="medium" pattern="HH:mm:ss"/></td>
-									<td>${item.mark}</td>
+									<td><fmt:formatDate value="${item.beginTime}" dateStyle="medium" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td><fmt:formatDate value="${item.endTime}" dateStyle="medium" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td>${item.title}</td>
+									<td>${item.attendPerson}</td>
+									<td>${item.mobile}</td>
 								</tr>
 							</c:forEach>
 					        </tbody>

@@ -47,4 +47,8 @@
         </property>
     </bean>
 
+<!--    <mvc:interceptors>
+        <bean class="com.example.interceptor.BaseInterceptor"/>
+    </mvc:interceptors>-->
+
 </beans>

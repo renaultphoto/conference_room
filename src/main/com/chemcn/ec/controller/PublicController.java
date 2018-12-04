@@ -1,5 +1,6 @@
 package main.com.chemcn.ec.controller;
 
+import main.com.chemcn.ec.bo.res.ReservationListRes;
 import main.com.chemcn.ec.utils.StringToDateConverter;
 import main.com.chemcn.ec.entity.*;
 import main.com.chemcn.ec.service.ReservationService;
@@ -15,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Author: zhoujl
@@ -90,37 +89,42 @@ public class PublicController {
      * @param model
      * @return
      * @throws Exception
-     *//*
+     */
     @RequestMapping("/toRecord")
     public String toRecord(Model model) throws Exception {
 
         return "/public/showRecordTable";
     }
-    *//**
+    /**
      *展示会议预定信息
      * @return
-     *//*
+     */
     @RequestMapping(value = "showRecordTable", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> showRecordTable()  {
         StringToDateConverter covert = new StringToDateConverter();
         Map<String, Object>  map = new HashMap<String, Object>();
-        List<ReservationVo> list = reservationService.findAllList();
+        ReservationListRes res = new ReservationListRes();
+        ReservationCustom reservationCustom = new ReservationCustom();
+        reservationCustom.setRoomId(7);
+        res = reservationService.findReservationListByRoom(reservationCustom);
         List<CalendarViewVO> listTemp = new ArrayList<CalendarViewVO>();
-        for(ReservationVo vo :list){
+        Date date=null;
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for(ReservationCustom vo :res.getList()){
             CalendarViewVO vVo = new CalendarViewVO();
             vVo.setId(vo.getId());
-            vVo.setStart(covert.convertToYMDString(vo.getBeginTime()));
-            vVo.setEnd(covert.convertToYMDString(vo.getEndTime()));
+            vVo.setStart(dateFormat.format(vo.getBegintime()));
+            vVo.setEnd(dateFormat.format(vo.getEndtime()));
             vVo.setUrl("#");
-            vVo.setTitle(vo.getName());
+            vVo.setTitle(vo.getMeettingTitle());
             listTemp.add(vVo);
         }
         map.put("list",listTemp);
         return map;
     }
 
-    *//*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<用户信息管理>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*//*
+    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<用户信息管理>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*//*
     //添加新用户
     @RequestMapping(value = "/userRegister", method = {RequestMethod.GET})
     public String userRegister(Model model) throws Exception {

@@ -16,7 +16,7 @@ import java.util.Date;
 public class StringToDateConverter implements Converter<String,Date> {
     public Date convert(String source) {
         Date date=null;
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             date=dateFormat.parse(source.trim());
             //return date;
@@ -31,15 +31,5 @@ public class StringToDateConverter implements Converter<String,Date> {
         return date;
     }
 
-    public String convertTohmsString(Date date) {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("HH:mm:ss");
-         String d =dateFormat.format(date);
-        return d;
-    }
 
-    public String convertToYMDString(Date date) {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        String d =dateFormat.format(date);
-        return d;
-    }
 }

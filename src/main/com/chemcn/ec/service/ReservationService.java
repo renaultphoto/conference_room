@@ -43,4 +43,12 @@ public interface ReservationService {
      * @return
      */
     public ReservationListRes findReservationListByRoom(ReservationCustom reservationCustom);
+
+    /**
+     * 查询有冲突的会议室
+     * @param reservationCustom
+     * @return
+     */
+    public ReservationListRes findConfilctRoom(ReservationCustom reservationCustom);
+
 }

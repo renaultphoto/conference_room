@@ -1,5 +1,9 @@
 package main.com.chemcn.ec.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -31,13 +35,13 @@ public class ReservationCustom  {
     private String meettingContent;
 
     /**开始时间*/
-    private java.util.Date begintime;
+    private Date begintime;
 
     /**结束时间*/
-    private java.util.Date endtime;
+    private Date endtime;
 
     /**日期*/
-    private java.util.Date reservationDate;
+    private Date reservationDate;
 
     /**状态，00已预约，01取消预约*/
     private String status;
@@ -124,7 +128,7 @@ public class ReservationCustom  {
         this.begintime=begintime;
     }
     /**开始时间*/
-    public java.util.Date getBegintime(){
+    public Date getBegintime(){
         return this.begintime;
     }
 
@@ -133,7 +137,7 @@ public class ReservationCustom  {
         this.endtime=endtime;
     }
     /**结束时间*/
-    public java.util.Date getEndtime(){
+    public Date getEndtime(){
         return this.endtime;
     }
 
@@ -142,7 +146,7 @@ public class ReservationCustom  {
         this.reservationDate=reservationDate;
     }
     /**日期*/
-    public java.util.Date getReservationDate(){
+    public Date getReservationDate(){
         return this.reservationDate;
     }
 

@@ -37,7 +37,7 @@
 		<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
 		<if test="begintime!=null and begintime!=''">and  a.begintime=#{begintime}</if>
 		<if test="endtime!=null and endtime!=''">and  a.endtime=#{endtime}</if>
-		<if test="reservationDate!=null and reservationDate!=''">and  a.reservation_date=#{reservationDate}</if>
+		<if test="reservationDate!=null">and DATE(reservation_date) =DATE(#{reservationDate}) </if>
 		<if test="status!=null and status!=''">and  a.status=#{status}</if>
 		<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 		<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
@@ -131,8 +131,8 @@
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
-			<![CDATA[ 1 = 1
-			and  a.endtime < NOW()
+			1 = 1
+		 <![CDATA[ and  a.endtime < NOW()]]>
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
@@ -148,7 +148,7 @@
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
-			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if> ]]>
+			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
 		</where>
 	</select>
 
@@ -174,8 +174,8 @@
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
-			<![CDATA[ 1 = 1
-			and  a.endtime < NOW()
+			 1 = 1
+			<![CDATA[ and  a.endtime < NOW() ]]>
 			<if test="reservationCustom.id!=null and reservationCustom.id!=''">and  a.id=#{reservationCustom.id}</if>
 			<if test="reservationCustom.roomId!=null and reservationCustom.roomId!=''">and  a.room_id=#{reservationCustom.roomId}</if>
 			<if test="reservationCustom.userId!=null and reservationCustom.userId!=''">and  a.user_id=#{reservationCustom.userId}</if>
@@ -191,7 +191,7 @@
 			<if test="reservationCustom.status!=null and reservationCustom.status!=''">and  a.status=#{reservationCustom.status}</if>
 			<if test="reservationCustom.extend1!=null and reservationCustom.extend1!=''">and  a.extend1=#{reservationCustom.extend1}</if>
 			<if test="reservationCustom.extend2!=null and reservationCustom.extend2!=''">and  a.extend2=#{reservationCustom.extend2}</if>
-			<if test="reservationCustom.extend3!=null and reservationCustom.extend3!=''">and  a.extend3=#{reservationCustom.extend3}</if> ]]>
+			<if test="reservationCustom.extend3!=null and reservationCustom.extend3!=''">and  a.extend3=#{reservationCustom.extend3}</if>
 		</where>
 		limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
 	</select>
@@ -201,8 +201,8 @@
 		select
 		count(*) from reservation
 		<where>
-			<![CDATA[ 1 = 1
-			and  a.endtime < NOW()
+			1 = 1
+			<![CDATA[ and  a.endtime < NOW() ]]>
 			<if test="id!=null and id!=''">and  id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  user_id=#{userId}</if>
@@ -216,7 +216,7 @@
 			<if test="status!=null and status!=''">and  status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
-			<if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if> ]]>
+			<if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
 		</where>
 	</select>
 
@@ -242,9 +242,9 @@
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
-			<![CDATA[ 1 = 1
-			and  a.begintime <= NOW()
-			and   a.endtime >= NOW()
+			1 = 1
+			<![CDATA[ and  a.begintime <= NOW()
+			and   a.endtime >= NOW()  ]]>
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
@@ -260,7 +260,7 @@
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
-			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if> ]]>
+			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
 		</where>
 	</select>
 
@@ -286,8 +286,8 @@
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
-			<![CDATA[ 	1 = 1
-			and  a.begintime > NOW()
+				1 = 1
+			<![CDATA[ and  a.begintime > NOW()]]>
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
@@ -303,7 +303,7 @@
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
-			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if> ]]>
+			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
 		</where>
 	</select>
 
@@ -329,8 +329,8 @@
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
-			<![CDATA[ 1 = 1
-			and  a.begintime > NOW()
+			1 = 1
+			<![CDATA[ and  a.begintime > NOW() ]]>
 			<if test="reservationCustom.id!=null and reservationCustom.id!=''">and  a.id=#{reservationCustom.id}</if>
 			<if test="reservationCustom.roomId!=null and reservationCustom.roomId!=''">and  a.room_id=#{reservationCustom.roomId}</if>
 			<if test="reservationCustom.userId!=null and reservationCustom.userId!=''">and  a.user_id=#{reservationCustom.userId}</if>
@@ -346,7 +346,7 @@
 			<if test="reservationCustom.status!=null and reservationCustom.status!=''">and  a.status=#{reservationCustom.status}</if>
 			<if test="reservationCustom.extend1!=null and reservationCustom.extend1!=''">and  a.extend1=#{reservationCustom.extend1}</if>
 			<if test="reservationCustom.extend2!=null and reservationCustom.extend2!=''">and  a.extend2=#{reservationCustom.extend2}</if>
-			<if test="reservationCustom.extend3!=null and reservationCustom.extend3!=''">and  a.extend3=#{reservationCustom.extend3}</if> ]]>
+			<if test="reservationCustom.extend3!=null and reservationCustom.extend3!=''">and  a.extend3=#{reservationCustom.extend3}</if>
 		</where>
 		limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
 	</select>
@@ -356,8 +356,8 @@
 		select
 		count(*) from reservation
 		<where>
-			<![CDATA[ 1 = 1
-			and  a.begintime > NOW()
+			1 = 1
+			<![CDATA[ and  a.begintime > NOW() ]]>
 			<if test="id!=null and id!=''">and  id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  user_id=#{userId}</if>
@@ -371,8 +371,52 @@
 			<if test="status!=null and status!=''">and  status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
-			<if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if> ]]>
+			<if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
 		</where>
 	</select>
-
+	<select id="findConfilctRoom" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
+		select
+		a.id as "id"
+		,   a.room_id as "roomId"
+		,   a.user_id as "userId"
+		,   u.nick_name as "nickName"
+		,   r.room_name as "roomName"
+		,   a.mobile as "mobile"
+		,   a.meetting_title as "meettingTitle"
+		,   a.attend_person as "attendPerson"
+		,   a.meetting_content as "meettingContent"
+		,   a.begintime as "begintime"
+		,   a.endtime as "endtime"
+		,   a.reservation_date as "reservationDate"
+		,   a.status as "status"
+		,   a.extend1 as "extend1"
+		,   a.extend2 as "extend2"
+		,   a.extend3 as "extend3"
+		FROM reservation a
+		LEFT JOIN room r on a.room_id=r.id
+		LEFT JOIN user u on u.id=a.user_id
+		<where>
+			1 = 1
+			<![CDATA[ and  (
+			(#{begintime} between a.begintime and a.endtime and a.endtime < #{endtime}  )
+			or (a.begintime > #{begintime} and a.endtime < #{endtime})
+			or (#{endtime} between a.begintime and a.endtime  and  #{begintime} between a.begintime and a.endtime )
+			or (a.begintime > #{begintime} and  #{endtime} between a.begintime and a.endtime)
+			)]]>
+			<if test="id!=null and id!=''">and  a.id=#{id}</if>
+			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
+			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
+			<if test="mobile!=null and mobile!=''">and  a.mobile=#{mobile}</if>
+			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title=#{meettingTitle}</if>
+			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person=#{attendPerson}</if>
+			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
+			<if test="reservationDate!=null and reservationDate!=''">and  a.reservation_date=#{reservationDate}</if>
+			<if test="status!=null and status!=''">and  a.status=#{status}</if>
+			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
+			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
+			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
+		</where>
+	</select>
 </mapper>

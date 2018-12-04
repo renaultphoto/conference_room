@@ -73,7 +73,7 @@
             <if test="extend3!=null ">extend3 = #{extend3},</if>
         </set>
         where
-        id=#{id}
+        openId=#{openid}
     </update>
 
     <insert id="insertRecord" parameterType="main.com.chemcn.ec.entity.User"  useGeneratedKeys="true" keyProperty="id" >

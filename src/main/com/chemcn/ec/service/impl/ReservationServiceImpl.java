@@ -7,6 +7,7 @@ import main.com.chemcn.ec.entity.Reservation;
 import main.com.chemcn.ec.entity.ReservationCustom;
 import main.com.chemcn.ec.pojo.ResultDo;
 import main.com.chemcn.ec.utils.BeanUtil;
+import main.com.chemcn.ec.utils.StringToDateConverter;
 import main.com.chemcn.ec.vo.ReservationVo;
 import main.com.chemcn.ec.constants.ReservationConstants;
 import main.com.chemcn.ec.vo.PagingVO;
@@ -15,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,14 +35,26 @@ public class ReservationServiceImpl implements ReservationService {
     public ResultDo addReservation(ReservationCustom reservationCustom){
         ResultDo res = new ResultDo();
         Reservation reservation = new Reservation();
-        if(reservationCustom == null){
-            res.setSuccess(false);
-            res.setMessage("预定信息为空!");
-            res.setCode(404);
-            return res;
-        }
-        BeanUtil.copyProperties(reservationCustom,reservation);
         try {
+            if(reservationCustom == null){
+                res.setSuccess(false);
+                res.setMessage("预定信息为空!");
+                res.setCode(404);
+                return res;
+            }
+            if(!reservationCustom.getBegintime().before(reservationCustom.getEndtime())){
+                res.setSuccess(false);
+                res.setMessage("开始时间不小于结束时间");
+                res.setCode(404);
+                return res;
+            }
+            if(!reservationCustom.getBegintime().before(reservationCustom.getEndtime())){
+                res.setSuccess(false);
+                res.setMessage("开始时间不小于结束时间");
+                res.setCode(404);
+                return res;
+            }
+            BeanUtil.copyProperties(reservationCustom,reservation);
             reservation.setStatus(ReservationConstants.RESERVATION_ORDER);
             reservationMapper.addReservation(reservation);
             res.setMessage("预定成功!");
@@ -90,6 +104,7 @@ public class ReservationServiceImpl implements ReservationService {
             return  res;
         }
         try{
+            reservationCustom.setStatus(ReservationConstants.RESERVATION_ORDER);
             List<ReservationCustom> list =  rservationExtMapper.findRecordsWithNotStarted(reservationCustom);
             res.setMessage("查询未开始的预定信息成功");
             res.setList(list);
@@ -118,6 +133,7 @@ public class ReservationServiceImpl implements ReservationService {
             return  res;
         }
         try{
+            reservationCustom.setStatus(ReservationConstants.RESERVATION_ORDER);
             List<ReservationCustom> list =  rservationExtMapper.findRecordsWithInvalid(reservationCustom);
             res.setMessage("查询未开始的预定信息成功");
             res.setList(list);
@@ -155,4 +171,34 @@ public class ReservationServiceImpl implements ReservationService {
         }
         return res;
     }
+
+    /**
+     * 查询有冲突的会议室
+     *
+     * @param reservationCustom
+     * @return
+     */
+    @Override
+    public ReservationListRes findConfilctRoom(ReservationCustom reservationCustom) {
+        ReservationListRes res = new ReservationListRes();
+        if(reservationCustom == null || reservationCustom.getRoomId() ==null){
+            res.setMessage("查询信息为空");
+            res.setCode(404);
+            res.setSuccess(false);
+            return  res;
+        }
+        try{
+            reservationCustom.setStatus(ReservationConstants.RESERVATION_ORDER);
+           Date d = new Date();
+            List<ReservationCustom> list =  rservationExtMapper.findConfilctRoom(reservationCustom);
+            res.setMessage("查询有冲突的会议室成功");
+            res.setList(list);
+        }catch (Exception e){
+            res.setMessage("查询有冲突的会议室失败");
+            res.setCode(404);
+            res.setSuccess(false);
+        }
+        return res;
+    }
+
 }

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/api/room")
-public class RoomApiController {
+public class ApiRoomController {
 
-    private static Logger logger = Logger.getLogger(RoomApiController.class);
+    private static Logger logger = Logger.getLogger(ApiRoomController.class);
 
     /**会议室服务*/
     @Autowired

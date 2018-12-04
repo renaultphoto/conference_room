@@ -1,5 +1,7 @@
 package main.com.chemcn.ec.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -24,11 +26,11 @@ public class ReservationVo {
 
     private String content;
 
-    private java.util.Date beginTime;
+    private Date beginTime;
 
-    private java.util.Date endTime;
+    private Date endTime;
 
-    private java.util.Date date;
+    private Date date;
 
     private String mark;
 

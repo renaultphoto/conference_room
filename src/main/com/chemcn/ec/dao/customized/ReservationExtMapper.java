@@ -78,5 +78,12 @@ public interface ReservationExtMapper {
 	 */
 	public Integer countRecordsWithNotStarted(HashMap<String,Object> map);
 
+	/**
+	 * 查询时间冲突的会议室
+	 * @param reservationCustom
+	 * @return
+	 */
+	public List<ReservationCustom> findConfilctRoom(ReservationCustom reservationCustom);
+
 }
 

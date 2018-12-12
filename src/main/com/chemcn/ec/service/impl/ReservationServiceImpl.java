@@ -1,6 +1,7 @@
 package main.com.chemcn.ec.service.impl;
 
 import main.com.chemcn.ec.bo.res.ReservationListRes;
+import main.com.chemcn.ec.bo.res.ReservationTodayListRes;
 import main.com.chemcn.ec.dao.ReservationMapper;
 import main.com.chemcn.ec.dao.customized.ReservationExtMapper;
 import main.com.chemcn.ec.entity.Reservation;
@@ -16,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
                 return res;
             }
             BeanUtil.copyProperties(reservationCustom,reservation);
+            reservation.setCreateTime(new Date());
             reservation.setStatus(ReservationConstants.RESERVATION_ORDER);
             reservationMapper.addReservation(reservation);
             res.setMessage("预定成功!");
@@ -127,7 +130,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationListRes findInvalidReservationList(ReservationCustom reservationCustom) {
         ReservationListRes res = new ReservationListRes();
         if(reservationCustom == null){
-            res.setMessage("查询信息为空");
+            res.setMessage("查询已失效的预定信息为空");
             res.setCode(404);
             res.setSuccess(false);
             return  res;
@@ -135,10 +138,10 @@ public class ReservationServiceImpl implements ReservationService {
         try{
             reservationCustom.setStatus(ReservationConstants.RESERVATION_ORDER);
             List<ReservationCustom> list =  rservationExtMapper.findRecordsWithInvalid(reservationCustom);
-            res.setMessage("查询未开始的预定信息成功");
+            res.setMessage("查询已失效的预定信息成功");
             res.setList(list);
         }catch (Exception e){
-            res.setMessage("查询信息失败");
+            res.setMessage("查询已失效的预定信息失败");
             res.setCode(404);
             res.setSuccess(false);
         }
@@ -161,6 +164,7 @@ public class ReservationServiceImpl implements ReservationService {
             return  res;
         }
         try{
+            reservationCustom.setStatus(ReservationConstants.RESERVATION_ORDER);
             List<ReservationCustom> list =  rservationExtMapper.findRecords(reservationCustom);
             res.setMessage("查询预定信息成功");
             res.setList(list);
@@ -195,6 +199,42 @@ public class ReservationServiceImpl implements ReservationService {
             res.setList(list);
         }catch (Exception e){
             res.setMessage("查询有冲突的会议室失败");
+            res.setCode(404);
+            res.setSuccess(false);
+        }
+        return res;
+    }
+
+    /**
+     * 查询当天的会议室预定情况
+     *
+     * @param reservationCustom
+     * @return
+     */
+    @Override
+    public ReservationTodayListRes findTodayReservationListByRoom(ReservationCustom reservationCustom) {
+        ReservationTodayListRes res = new ReservationTodayListRes();
+        if(reservationCustom == null || reservationCustom.getRoomId() ==null){
+            res.setMessage("查询信息为空");
+            res.setCode(404);
+            res.setSuccess(false);
+            return  res;
+        }
+        try{
+            List<String> periods = new ArrayList<String>();
+            reservationCustom.setStatus(ReservationConstants.RESERVATION_ORDER);
+            List<ReservationCustom> list =  rservationExtMapper.findRecords(reservationCustom);
+            for(ReservationCustom r : list){
+                String[] arr = r.getPeriod().split(",");
+                for(String a :arr){
+                    periods.add(a);
+                }
+            }
+            res.setMessage("查询预定信息成功");
+            res.setList(list);
+            res.setPeriods(periods);
+        }catch (Exception e){
+            res.setMessage("查询信息失败");
             res.setCode(404);
             res.setSuccess(false);
         }

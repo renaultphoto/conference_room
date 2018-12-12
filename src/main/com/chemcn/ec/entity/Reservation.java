@@ -34,13 +34,13 @@ public class Reservation {
     private String meettingContent;
 
     /**开始时间*/
-    private Date begintime;
+    private java.util.Date begintime;
 
     /**结束时间*/
-    private Date endtime;
+    private java.util.Date endtime;
 
     /**日期*/
-    private Date reservationDate;
+    private java.util.Date reservationDate;
 
     /**状态，00已预约，01取消预约*/
     private String status;
@@ -53,6 +53,18 @@ public class Reservation {
 
     /***/
     private String extend3;
+
+    /**发起人*/
+    private String initiator;
+
+    /**会议类型*/
+    private String meetingType;
+
+    /**时间段*/
+    private String period;
+
+    /**创建日期*/
+    private java.util.Date createTime;
 
     /**ID*/
     public void setId(Integer id){
@@ -122,7 +134,7 @@ public class Reservation {
         this.begintime=begintime;
     }
     /**开始时间*/
-    public Date getBegintime(){
+    public java.util.Date getBegintime(){
         return this.begintime;
     }
 
@@ -131,7 +143,7 @@ public class Reservation {
         this.endtime=endtime;
     }
     /**结束时间*/
-    public Date getEndtime(){
+    public java.util.Date getEndtime(){
         return this.endtime;
     }
 
@@ -140,7 +152,7 @@ public class Reservation {
         this.reservationDate=reservationDate;
     }
     /**日期*/
-    public Date getReservationDate(){
+    public java.util.Date getReservationDate(){
         return this.reservationDate;
     }
 
@@ -180,6 +192,40 @@ public class Reservation {
         return this.extend3;
     }
 
+    /**发起人*/
+    public void setInitiator(String initiator){
+        this.initiator=initiator;
+    }
+    /**发起人*/
+    public String getInitiator(){
+        return this.initiator;
+    }
+
+    /**会议类型*/
+    public void setMeetingType(String meetingType){
+        this.meetingType=meetingType;
+    }
+    /**会议类型*/
+    public String getMeetingType(){
+        return this.meetingType;
+    }
+
+    /**时间段*/
+    public void setPeriod(String period){
+        this.period=period;
+    }
+    /**时间段*/
+    public String getPeriod(){
+        return this.period;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public HashMap<String, Object> toHashMap() {
         HashMap<String,Object> map = new HashMap<String,Object>();
@@ -197,6 +243,10 @@ public class Reservation {
         map.put("extend1",this.extend1);
         map.put("extend2",this.extend2);
         map.put("extend3",this.extend3);
+        map.put("initiator",this.initiator);
+        map.put("meetingType",this.meetingType);
+        map.put("period",this.period);
+        map.put("createTime",this.createTime);
         return map;
     }
 }

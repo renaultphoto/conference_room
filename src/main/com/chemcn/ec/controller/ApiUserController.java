@@ -6,7 +6,6 @@ import main.com.chemcn.ec.entity.User;
 import main.com.chemcn.ec.pojo.ResultDo;
 import main.com.chemcn.ec.service.UserService;
 import main.com.chemcn.ec.utils.HttpRequest;
-import main.com.chemcn.ec.utils.aes.AesCbcUtil;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,11 +77,14 @@ public class ApiUserController {
         }
 
         //小程序唯一标识   (在微信小程序管理后台获取)
-        String wxspAppid = "wx6c189d8b6ff6e3eb";
+        String wxspAppid = "";
         //小程序的 app secret (在微信小程序管理后台获取)
-        String wxspSecret = "1f5732bc24f96dbd6d7d06d455382907";
+        String wxspSecret = "";
         //授权（必填）
-        String grant_type = "authorization_code";
+        String grant_type = "";
+
+
+
 
         //////////////// 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid ////////////////
         //请求参数
@@ -106,21 +108,25 @@ public class ApiUserController {
                 userInfo.put("openid", openid);
                 userInfo.put("id", res.getUser().getId());
                 map.put("userInfo", userInfo);
+                if(null == res.getUser().getNickName() || res.getUser().getNickName().isEmpty()){
+                    map.put("isSubmit", false);
+                }else{
+                    map.put("isSubmit", true);
+                }
                 map.put("code", 200);
                 map.put("msg", "登录成功");
                 return map;
             }
             //新增用户
-            String account = "U"+System.currentTimeMillis();
             User user = new User();
             user.setOpenid(openid);
-            user.setExtend1(session_key);
-            user.setAccount(account);
-            user.setRole(UserConstants.USER_CUSTOMER);
+            user.setSessionKey(session_key);
+            user.setPassword("111111");
             userService.addNewUser(user);
             map.put("userInfo", userInfo);
             userInfo.put("openid", openid);
             userInfo.put("id", user.getId());
+            map.put("isSubmit", false);
             map.put("code", 200);
             map.put("msg", "登录成功");
             return map;

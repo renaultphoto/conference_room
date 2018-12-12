@@ -18,41 +18,50 @@
         <result property="extend1" column="extend1" />
         <result property="extend2" column="extend2" />
         <result property="extend3" column="extend3" />
+        <result property="internalIp" column="internalIp" />
+        <result property="outerIp" column="outerIp" />
+        <result property="createTime" column="createTime" />
     </resultMap>
 
     <select id="findRecords" parameterType="hashmap" resultMap="UserEntity">
-            select
-            id as "id"
-            ,   account as "account"
-            ,   nick_name as "nickName"
-            ,   password as "password"
-            ,   mobile as "mobile"
-            ,   mail as "mail"
-            ,   openId as "openid"
-            ,   headImg as "headimg"
-            ,   position as "position"
-            ,   department as "department"
-            ,   role as "role"
-            ,   extend1 as "extend1"
-            ,   extend2 as "extend2"
-            ,   extend3 as "extend3"
-            from user
-            <where>
-                <if test="id!=null and id!=''">and  id=#{id}</if>
-                <if test="account!=null and account!=''">and  account=#{account}</if>
-                <if test="nickName!=null and nickName!=''">and  nick_name=#{nickName}</if>
-                <if test="password!=null and password!=''">and  password=#{password}</if>
-                <if test="mobile!=null and mobile!=''">and  mobile=#{mobile}</if>
-                <if test="mail!=null and mail!=''">and  mail=#{mail}</if>
-                <if test="openid!=null and openid!=''">and  openId=#{openid}</if>
-                <if test="headimg!=null and headimg!=''">and  headImg=#{headimg}</if>
-                <if test="position!=null and position!=''">and  position=#{position}</if>
-                <if test="department!=null and department!=''">and  department=#{department}</if>
-                <if test="role!=null and role!=''">and  role=#{role}</if>
-                <if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
-                <if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
-                <if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
-            </where>
+        select
+        id as "id"
+        ,   account as "account"
+        ,   nick_name as "nickName"
+        ,   password as "password"
+        ,   mobile as "mobile"
+        ,   mail as "mail"
+        ,   openId as "openid"
+        ,   headImg as "headimg"
+        ,   position as "position"
+        ,   department as "department"
+        ,   address as "address"
+        ,   gender as "gender"
+        ,   session_key as "sessionKey"
+        ,   role as "role"
+        ,   extend1 as "extend1"
+        ,   extend2 as "extend2"
+        ,   extend3 as "extend3"
+        from user
+        <where>
+            <if test="id!=null and id!=''">and  id=#{id}</if>
+            <if test="account!=null and account!=''">and  account=#{account}</if>
+            <if test="nickName!=null and nickName!=''">and  nick_name=#{nickName}</if>
+            <if test="password!=null and password!=''">and  password=#{password}</if>
+            <if test="mobile!=null and mobile!=''">and  mobile=#{mobile}</if>
+            <if test="mail!=null and mail!=''">and  mail=#{mail}</if>
+            <if test="openid!=null and openid!=''">and  openId=#{openid}</if>
+            <if test="headimg!=null and headimg!=''">and  headImg=#{headimg}</if>
+            <if test="position!=null and position!=''">and  position=#{position}</if>
+            <if test="department!=null and department!=''">and  department=#{department}</if>
+            <if test="address!=null and address!=''">and  address=#{address}</if>
+            <if test="gender!=null and gender!=''">and  gender=#{gender}</if>
+            <if test="sessionKey!=null and sessionKey!=''">and  session_key=#{sessionKey}</if>
+            <if test="role!=null and role!=''">and  role=#{role}</if>
+            <if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
+            <if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
+            <if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
+        </where>
     </select>
 
     <update id="updateUser" parameterType="main.com.chemcn.ec.entity.User">
@@ -67,6 +76,9 @@
             <if test="headimg!=null ">headImg = #{headimg},</if>
             <if test="position!=null ">position = #{position},</if>
             <if test="department!=null ">department = #{department},</if>
+            <if test="address!=null ">address = #{address},</if>
+            <if test="gender!=null ">gender = #{gender},</if>
+            <if test="sessionKey!=null ">session_key = #{sessionKey},</if>
             <if test="role!=null ">role = #{role},</if>
             <if test="extend1!=null ">extend1 = #{extend1},</if>
             <if test="extend2!=null ">extend2 = #{extend2},</if>
@@ -86,10 +98,17 @@
 						,headImg
 						,position
 						,department
+						,address
+						,gender
+						,session_key
 						,role
 						,extend1
 						,extend2
 						,extend3
+                        ,internalIp
+                        ,outerIp
+                        ,createTime
+
 						)
 		values(	#{account}
 						,#{nickName}
@@ -100,10 +119,16 @@
 						,#{headimg}
 						,#{position}
 						,#{department}
+						,#{address}
+						,#{gender}
+						,#{sessionKey}
 						,#{role}
 						,#{extend1}
 						,#{extend2}
 						,#{extend3}
+						,#{internalIp}
+                        ,#{outerIp}
+                        ,#{createTime}
 				)
 	</insert>
 

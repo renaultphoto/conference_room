@@ -1,6 +1,7 @@
 package main.com.chemcn.ec.service;
 
 import main.com.chemcn.ec.bo.res.ReservationListRes;
+import main.com.chemcn.ec.bo.res.ReservationTodayListRes;
 import main.com.chemcn.ec.entity.ReservationCustom;
 import main.com.chemcn.ec.pojo.ResultDo;
 
@@ -50,5 +51,12 @@ public interface ReservationService {
      * @return
      */
     public ReservationListRes findConfilctRoom(ReservationCustom reservationCustom);
+
+    /**
+     * 查询当天的会议室预定情况
+     * @param reservationCustom
+     * @return
+     */
+    public ReservationTodayListRes findTodayReservationListByRoom(ReservationCustom reservationCustom);
 
 }

@@ -1,6 +1,7 @@
 package main.com.chemcn.ec.controller;
 
 import main.com.chemcn.ec.bo.res.ReservationListRes;
+import main.com.chemcn.ec.bo.res.ReservationTodayListRes;
 import main.com.chemcn.ec.entity.ReservationCustom;
 import main.com.chemcn.ec.pojo.ResultDo;
 import main.com.chemcn.ec.service.ReservationService;
@@ -100,9 +101,9 @@ public class ApiReservationController {
      */
     @RequestMapping(value ="/findTodayReservation", method = RequestMethod.POST)
     @ResponseBody
-    public ReservationListRes findTodayReservation(ReservationCustom reservationCustom){
-        ReservationListRes res = new ReservationListRes();
-        res = reservationService.findReservationListByRoom(reservationCustom);
+    public ReservationTodayListRes findTodayReservation(ReservationCustom reservationCustom){
+        ReservationTodayListRes res = new ReservationTodayListRes();
+        res = reservationService.findTodayReservationListByRoom(reservationCustom);
         return res;
     }
 

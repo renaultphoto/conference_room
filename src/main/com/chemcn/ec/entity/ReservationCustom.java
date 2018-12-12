@@ -35,13 +35,13 @@ public class ReservationCustom  {
     private String meettingContent;
 
     /**开始时间*/
-    private Date begintime;
+    private java.util.Date begintime;
 
     /**结束时间*/
-    private Date endtime;
+    private java.util.Date endtime;
 
     /**日期*/
-    private Date reservationDate;
+    private java.util.Date reservationDate;
 
     /**状态，00已预约，01取消预约*/
     private String status;
@@ -55,135 +55,158 @@ public class ReservationCustom  {
     /***/
     private String extend3;
 
+    /**发起人*/
+    private String initiator;
+
+    /**会议类型*/
+    private String meetingType;
+
+    /**时间段*/
+    private String period;
+
     //用户昵称
     private String nickName;
+
     //会议室名称
     private String roomName;
 
-    /**ID*/
-    public void setId(Integer id){
-        this.id=id;
-    }
-    /**ID*/
-    public Integer getId(){
-        return this.id;
+    //会议室设备
+    private String equipment;
+
+    public Integer getId() {
+        return id;
     }
 
-    /**会议室ID*/
-    public void setRoomId(Integer roomId){
-        this.roomId=roomId;
-    }
-    /**会议室ID*/
-    public Integer getRoomId(){
-        return this.roomId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    /**用户名_ID*/
-    public void setUserId(Integer userId){
-        this.userId=userId;
-    }
-    /**用户名_ID*/
-    public Integer getUserId(){
-        return this.userId;
+    public Integer getRoomId() {
+        return roomId;
     }
 
-    /**手机号*/
-    public void setMobile(String mobile){
-        this.mobile=mobile;
-    }
-    /**手机号*/
-    public String getMobile(){
-        return this.mobile;
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
-    /**会议标题*/
-    public void setMeettingTitle(String meettingTitle){
-        this.meettingTitle=meettingTitle;
-    }
-    /**会议标题*/
-    public String getMeettingTitle(){
-        return this.meettingTitle;
+    public Integer getUserId() {
+        return userId;
     }
 
-    /**参与人*/
-    public void setAttendPerson(String attendPerson){
-        this.attendPerson=attendPerson;
-    }
-    /**参与人*/
-    public String getAttendPerson(){
-        return this.attendPerson;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    /**会议内容*/
-    public void setMeettingContent(String meettingContent){
-        this.meettingContent=meettingContent;
-    }
-    /**会议内容*/
-    public String getMeettingContent(){
-        return this.meettingContent;
+    public String getMobile() {
+        return mobile;
     }
 
-    /**开始时间*/
-    public void setBegintime(java.util.Date begintime){
-        this.begintime=begintime;
-    }
-    /**开始时间*/
-    public Date getBegintime(){
-        return this.begintime;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    /**结束时间*/
-    public void setEndtime(java.util.Date endtime){
-        this.endtime=endtime;
-    }
-    /**结束时间*/
-    public Date getEndtime(){
-        return this.endtime;
+    public String getMeettingTitle() {
+        return meettingTitle;
     }
 
-    /**日期*/
-    public void setReservationDate(java.util.Date reservationDate){
-        this.reservationDate=reservationDate;
-    }
-    /**日期*/
-    public Date getReservationDate(){
-        return this.reservationDate;
+    public void setMeettingTitle(String meettingTitle) {
+        this.meettingTitle = meettingTitle;
     }
 
-    /**状态，00已预约，01取消预约*/
-    public void setStatus(String status){
-        this.status=status;
-    }
-    /**状态，00已预约，01取消预约*/
-    public String getStatus(){
-        return this.status;
+    public String getAttendPerson() {
+        return attendPerson;
     }
 
-    /***/
-    public void setExtend1(String extend1){
-        this.extend1=extend1;
-    }
-    /***/
-    public String getExtend1(){
-        return this.extend1;
+    public void setAttendPerson(String attendPerson) {
+        this.attendPerson = attendPerson;
     }
 
-    /***/
-    public void setExtend2(String extend2){
-        this.extend2=extend2;
-    }
-    /***/
-    public String getExtend2(){
-        return this.extend2;
+    public String getMeettingContent() {
+        return meettingContent;
     }
 
-    /***/
-    public void setExtend3(String extend3){
-        this.extend3=extend3;
+    public void setMeettingContent(String meettingContent) {
+        this.meettingContent = meettingContent;
     }
-    /***/
-    public String getExtend3(){
-        return this.extend3;
+
+    public Date getBegintime() {
+        return begintime;
+    }
+
+    public void setBegintime(Date begintime) {
+        this.begintime = begintime;
+    }
+
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getExtend1() {
+        return extend1;
+    }
+
+    public void setExtend1(String extend1) {
+        this.extend1 = extend1;
+    }
+
+    public String getExtend2() {
+        return extend2;
+    }
+
+    public void setExtend2(String extend2) {
+        this.extend2 = extend2;
+    }
+
+    public String getExtend3() {
+        return extend3;
+    }
+
+    public void setExtend3(String extend3) {
+        this.extend3 = extend3;
+    }
+
+    public String getInitiator() {
+        return initiator;
+    }
+
+    public void setInitiator(String initiator) {
+        this.initiator = initiator;
+    }
+
+    public String getMeetingType() {
+        return meetingType;
+    }
+
+    public void setMeetingType(String meetingType) {
+        this.meetingType = meetingType;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
     }
 
     public String getNickName() {
@@ -202,13 +225,19 @@ public class ReservationCustom  {
         this.roomName = roomName;
     }
 
+    public String getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
+
     public HashMap<String, Object> toHashMap() {
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("id",this.id);
         map.put("roomId",this.roomId);
         map.put("userId",this.userId);
-        map.put("roomName",this.roomName);
-        map.put("nickName",this.nickName);
         map.put("mobile",this.mobile);
         map.put("meettingTitle",this.meettingTitle);
         map.put("attendPerson",this.attendPerson);
@@ -220,6 +249,12 @@ public class ReservationCustom  {
         map.put("extend1",this.extend1);
         map.put("extend2",this.extend2);
         map.put("extend3",this.extend3);
+        map.put("initiator",this.initiator);
+        map.put("meetingType",this.meetingType);
+        map.put("period",this.period);
+        map.put("roomName",this.roomName);
+        map.put("nickName",this.nickName);
+        map.put("equipment",this.equipment);
         return map;
     }
 }

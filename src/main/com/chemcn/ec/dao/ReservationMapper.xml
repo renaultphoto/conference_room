@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="main.com.chemcn.ec.dao.ReservationMapper">
-    <resultMap type="main.com.chemcn.ec.entity.Reservation" id="ReservationEntity">
+    <resultMap  type="main.com.chemcn.ec.entity.Reservation" id="ReservationEntity">
         <result property="id" column="id" />
         <result property="roomId" column="room_id" />
         <result property="userId" column="user_id" />
@@ -17,39 +17,51 @@
         <result property="extend1" column="extend1" />
         <result property="extend2" column="extend2" />
         <result property="extend3" column="extend3" />
+        <result property="initiator" column="initiator" />
+        <result property="meetingType" column="meeting_type" />
+        <result property="period" column="period" />
+        <result property="createTime" column="createTime" />
     </resultMap>
 
     <insert id="addReservation" parameterType="main.com.chemcn.ec.entity.Reservation"  useGeneratedKeys="true" keyProperty="id" >
-    insert  into reservation (				id
-                    ,room_id
-                    ,user_id
-                    ,mobile
-                    ,meetting_title
-                    ,attend_person
-                    ,meetting_content
-                    ,begintime
-                    ,endtime
-                    ,reservation_date
-                    ,status
-                    ,extend1
-                    ,extend2
-                    ,extend3
-                    )
-    values(		#{id}
-                    ,#{roomId}
-                    ,#{userId}
-                    ,#{mobile}
-                    ,#{meettingTitle}
-                    ,#{attendPerson}
-                    ,#{meettingContent}
-                    ,#{begintime}
-                    ,#{endtime}
-                    ,#{reservationDate}
-                    ,#{status}
-                    ,#{extend1}
-                    ,#{extend2}
-                    ,#{extend3}
-            )
+    		insert  into reservation (				id
+						,room_id
+						,user_id
+						,mobile
+						,meetting_title
+						,attend_person
+						,meetting_content
+						,begintime
+						,endtime
+						,reservation_date
+						,status
+						,extend1
+						,extend2
+						,extend3
+						,initiator
+						,meeting_type
+						,period
+						,createTime
+						)
+		values(		#{id}
+						,#{roomId}
+						,#{userId}
+						,#{mobile}
+						,#{meettingTitle}
+						,#{attendPerson}
+						,#{meettingContent}
+						,#{begintime}
+						,#{endtime}
+						,#{reservationDate}
+						,#{status}
+						,#{extend1}
+						,#{extend2}
+						,#{extend3}
+						,#{initiator}
+						,#{meetingType}
+						,#{period}
+						,#{createTime}
+				)
     </insert>
     <update id="updateReservation" parameterType="main.com.chemcn.ec.entity.Reservation">
         update reservation
@@ -67,6 +79,9 @@
             <if test="extend1!=null ">extend1 = #{extend1},</if>
             <if test="extend2!=null ">extend2 = #{extend2},</if>
             <if test="extend3!=null ">extend3 = #{extend3},</if>
+            <if test="initiator!=null ">initiator = #{initiator},</if>
+            <if test="meetingType!=null ">meeting_type = #{meetingType},</if>
+            <if test="period!=null ">period = #{period},</if>
         </set>
         where
         id=#{id}
@@ -87,6 +102,9 @@
         ,   extend1 as "extend1"
         ,   extend2 as "extend2"
         ,   extend3 as "extend3"
+        ,   initiator as "initiator"
+        ,   meeting_type as "meetingType"
+        ,   period as "period"
         from reservation
         <where>
             <if test="id!=null and id!=''">and  id=#{id}</if>
@@ -103,6 +121,9 @@
             <if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
             <if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
             <if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
+            <if test="initiator!=null and initiator!=''">and  initiator=#{initiator}</if>
+            <if test="meetingType!=null and meetingType!=''">and  meeting_type=#{meetingType}</if>
+            <if test="period!=null and period!=''">and  period=#{period}</if>
         </where>
     </select>
 </mapper>

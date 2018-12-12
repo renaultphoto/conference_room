@@ -14,6 +14,6 @@ public class UserConstants {
 
     public static final Integer USER_NOTHISUSER=100;
 
-    public static final Integer USER_EXIST=101;
+    public static final Integer USER_EXIST=200;
 
 }

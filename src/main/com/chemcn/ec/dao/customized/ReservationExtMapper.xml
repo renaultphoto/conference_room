@@ -6,22 +6,26 @@
 
 <select id="findRecords" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
 	select
-		a.id as "id"
-		,   a.room_id as "roomId"
-		,   a.user_id as "userId"
-		,   u.nick_name as "nickName"
-		,   r.room_name as "roomName"
-		,   a.mobile as "mobile"
-		,   a.meetting_title as "meettingTitle"
-		,   a.attend_person as "attendPerson"
-		,   a.meetting_content as "meettingContent"
-		,   a.begintime as "begintime"
-		,   a.endtime as "endtime"
-		,   a.reservation_date as "reservationDate"
-		,   a.status as "status"
-		,   a.extend1 as "extend1"
-		,   a.extend2 as "extend2"
-		,   a.extend3 as "extend3"
+	a.id as "id"
+	,  a.room_id as "roomId"
+	,   a.user_id as "userId"
+	,   a.mobile as "mobile"
+	,   a.meetting_title as "meettingTitle"
+	,   a.attend_person as "attendPerson"
+	,   a.meetting_content as "meettingContent"
+	,   a.begintime as "begintime"
+	,   a.endtime as "endtime"
+	,   a.reservation_date as "reservationDate"
+	,   a.status as "status"
+	,   a.extend1 as "extend1"
+	,   a.extend2 as "extend2"
+	,   a.extend3 as "extend3"
+	,   a.initiator as "initiator"
+	,   a.meeting_type as "meetingType"
+	,   a.period as "period"
+	,   u.nick_name as "nickName"
+	,   r.room_name as "roomName"
+	,   r.equipment as "equipment"
 	FROM reservation a
 	LEFT JOIN room r on a.room_id=r.id
 	LEFT JOIN user u on u.id=a.user_id
@@ -29,20 +33,22 @@
 		<if test="id!=null and id!=''">and  a.id=#{id}</if>
 		<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 		<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
-		<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
-		<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 		<if test="mobile!=null and mobile!=''">and  a.mobile=#{mobile}</if>
 		<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title=#{meettingTitle}</if>
 		<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person=#{attendPerson}</if>
 		<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
-		<if test="begintime!=null and begintime!=''">and  a.begintime=#{begintime}</if>
-		<if test="endtime!=null and endtime!=''">and  a.endtime=#{endtime}</if>
-		<if test="reservationDate!=null">and DATE(reservation_date) =DATE(#{reservationDate}) </if>
+		<if test="reservationDate!=null">and DATE(a.reservation_date) =DATE(#{reservationDate}) </if>
 		<if test="status!=null and status!=''">and  a.status=#{status}</if>
 		<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 		<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
 		<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
-			</where>
+		<if test="initiator!=null and initiator!=''">and  a.initiator=#{initiator}</if>
+		<if test="meetingType!=null and meetingType!=''">and a.meeting_type=#{meetingType}</if>
+		<if test="period!=null and period!=''">and  a.period=#{period}</if>
+		<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
+		<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
+					</where>
+	order by a.begintime
 	</select>
 
 	<select id="findRecordsByPage"  resultType="main.com.chemcn.ec.entity.ReservationCustom">
@@ -112,10 +118,8 @@
 	<select id="findRecordsWithInvalid" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
 		select
 		a.id as "id"
-		,   a.room_id as "roomId"
+		,  a.room_id as "roomId"
 		,   a.user_id as "userId"
-		,   u.nick_name as "nickName"
-		,   r.room_name as "roomName"
 		,   a.mobile as "mobile"
 		,   a.meetting_title as "meettingTitle"
 		,   a.attend_person as "attendPerson"
@@ -127,6 +131,12 @@
 		,   a.extend1 as "extend1"
 		,   a.extend2 as "extend2"
 		,   a.extend3 as "extend3"
+		,   a.initiator as "initiator"
+		,   a.meeting_type as "meetingType"
+		,   a.period as "period"
+		,   u.nick_name as "nickName"
+		,   r.room_name as "roomName"
+		,   r.equipment as "equipment"
 		FROM reservation a
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
@@ -136,20 +146,22 @@
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
-			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
-			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 			<if test="mobile!=null and mobile!=''">and  a.mobile=#{mobile}</if>
 			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title=#{meettingTitle}</if>
 			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person=#{attendPerson}</if>
 			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
-			<if test="begintime!=null and begintime!=''">and  a.begintime=#{begintime}</if>
-			<if test="endtime!=null and endtime!=''">and  a.endtime=#{endtime}</if>
-			<if test="reservationDate!=null and reservationDate!=''">and  a.reservation_date=#{reservationDate}</if>
+			<if test="reservationDate!=null">and DATE(a.reservation_date) =DATE(#{reservationDate}) </if>
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
 			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
+			<if test="initiator!=null and initiator!=''">and  a.initiator=#{initiator}</if>
+			<if test="meetingType!=null and meetingType!=''">and a.meeting_type=#{meetingType}</if>
+			<if test="period!=null and period!=''">and  a.period=#{period}</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 		</where>
+		order by a.begintime DESC
 	</select>
 
 	<select id="findRecordsWithInvalidByPage" resultType="main.com.chemcn.ec.entity.ReservationCustom">
@@ -223,10 +235,8 @@
 	<select id="findRecordsWithOnMeeting" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
 		select
 		a.id as "id"
-		,   a.room_id as "roomId"
+		,  a.room_id as "roomId"
 		,   a.user_id as "userId"
-		,   u.nick_name as "nickName"
-		,   r.room_name as "roomName"
 		,   a.mobile as "mobile"
 		,   a.meetting_title as "meettingTitle"
 		,   a.attend_person as "attendPerson"
@@ -238,6 +248,12 @@
 		,   a.extend1 as "extend1"
 		,   a.extend2 as "extend2"
 		,   a.extend3 as "extend3"
+		,   a.initiator as "initiator"
+		,   a.meeting_type as "meetingType"
+		,   a.period as "period"
+		,   u.nick_name as "nickName"
+		,   r.room_name as "roomName"
+		,   r.equipment as "equipment"
 		FROM reservation a
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
@@ -248,29 +264,28 @@
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
-			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
-			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 			<if test="mobile!=null and mobile!=''">and  a.mobile=#{mobile}</if>
 			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title=#{meettingTitle}</if>
 			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person=#{attendPerson}</if>
 			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
-			<if test="begintime!=null and begintime!=''">and  a.begintime=#{begintime}</if>
-			<if test="endtime!=null and endtime!=''">and  a.endtime=#{endtime}</if>
-			<if test="reservationDate!=null and reservationDate!=''">and  a.reservation_date=#{reservationDate}</if>
+			<if test="reservationDate!=null">and DATE(a.reservation_date) =DATE(#{reservationDate}) </if>
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
 			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
+			<if test="initiator!=null and initiator!=''">and  a.initiator=#{initiator}</if>
+			<if test="meetingType!=null and meetingType!=''">and a.meeting_type=#{meetingType}</if>
+			<if test="period!=null and period!=''">and  a.period=#{period}</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 		</where>
 	</select>
 
 	<select id="findRecordsWithNotStarted" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
 		select
 		a.id as "id"
-		,   a.room_id as "roomId"
+		,  a.room_id as "roomId"
 		,   a.user_id as "userId"
-		,   u.nick_name as "nickName"
-		,   r.room_name as "roomName"
 		,   a.mobile as "mobile"
 		,   a.meetting_title as "meettingTitle"
 		,   a.attend_person as "attendPerson"
@@ -282,6 +297,12 @@
 		,   a.extend1 as "extend1"
 		,   a.extend2 as "extend2"
 		,   a.extend3 as "extend3"
+		,   a.initiator as "initiator"
+		,   a.meeting_type as "meetingType"
+		,   a.period as "period"
+		,   u.nick_name as "nickName"
+		,   r.room_name as "roomName"
+		,   r.equipment as "equipment"
 		FROM reservation a
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
@@ -291,20 +312,22 @@
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
-			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
-			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 			<if test="mobile!=null and mobile!=''">and  a.mobile=#{mobile}</if>
 			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title=#{meettingTitle}</if>
 			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person=#{attendPerson}</if>
 			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
-			<if test="begintime!=null and begintime!=''">and  a.begintime=#{begintime}</if>
-			<if test="endtime!=null and endtime!=''">and  a.endtime=#{endtime}</if>
-			<if test="reservationDate!=null and reservationDate!=''">and  a.reservation_date=#{reservationDate}</if>
+			<if test="reservationDate!=null">and DATE(a.reservation_date) =DATE(#{reservationDate}) </if>
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
 			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
+			<if test="initiator!=null and initiator!=''">and  a.initiator=#{initiator}</if>
+			<if test="meetingType!=null and meetingType!=''">and a.meeting_type=#{meetingType}</if>
+			<if test="period!=null and period!=''">and  a.period=#{period}</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 		</where>
+		order by a.begintime
 	</select>
 
 	<select id="findRecordsWithNotStartedByPage"  resultType="main.com.chemcn.ec.entity.ReservationCustom">
@@ -377,10 +400,8 @@
 	<select id="findConfilctRoom" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
 		select
 		a.id as "id"
-		,   a.room_id as "roomId"
+		,  a.room_id as "roomId"
 		,   a.user_id as "userId"
-		,   u.nick_name as "nickName"
-		,   r.room_name as "roomName"
 		,   a.mobile as "mobile"
 		,   a.meetting_title as "meettingTitle"
 		,   a.attend_person as "attendPerson"
@@ -392,6 +413,12 @@
 		,   a.extend1 as "extend1"
 		,   a.extend2 as "extend2"
 		,   a.extend3 as "extend3"
+		,   a.initiator as "initiator"
+		,   a.meeting_type as "meetingType"
+		,   a.period as "period"
+		,   u.nick_name as "nickName"
+		,   r.room_name as "roomName"
+		,   r.equipment as "equipment"
 		FROM reservation a
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
@@ -406,17 +433,20 @@
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
-			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
-			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 			<if test="mobile!=null and mobile!=''">and  a.mobile=#{mobile}</if>
 			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title=#{meettingTitle}</if>
 			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person=#{attendPerson}</if>
 			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content=#{meettingContent}</if>
-			<if test="reservationDate!=null and reservationDate!=''">and  a.reservation_date=#{reservationDate}</if>
+			<if test="reservationDate!=null">and DATE(a.reservation_date) =DATE(#{reservationDate}) </if>
 			<if test="status!=null and status!=''">and  a.status=#{status}</if>
 			<if test="extend1!=null and extend1!=''">and  a.extend1=#{extend1}</if>
 			<if test="extend2!=null and extend2!=''">and  a.extend2=#{extend2}</if>
 			<if test="extend3!=null and extend3!=''">and  a.extend3=#{extend3}</if>
+			<if test="initiator!=null and initiator!=''">and  a.initiator=#{initiator}</if>
+			<if test="meetingType!=null and meetingType!=''">and a.meeting_type=#{meetingType}</if>
+			<if test="period!=null and period!=''">and  a.period=#{period}</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name=#{nickName}</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name=#{roomName}</if>
 		</where>
 	</select>
 </mapper>

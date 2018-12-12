@@ -22,7 +22,7 @@ public class StringToDateConverter implements Converter<String,Date> {
             //return date;
         } catch (ParseException e) {
             try{
-                dateFormat=new SimpleDateFormat("HH:mm:ss");
+                dateFormat=new SimpleDateFormat("yyyy-MM-dd");
                 date=dateFormat.parse(source.trim());
             }catch (ParseException e1){
                 e1.printStackTrace();

@@ -6,10 +6,12 @@ import main.com.chemcn.ec.dao.UserMapper;
 import main.com.chemcn.ec.entity.User;
 import main.com.chemcn.ec.pojo.ResultDo;
 import main.com.chemcn.ec.service.UserService;
+import main.com.chemcn.ec.utils.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * Created by zhoujl on 2018/12/03.
@@ -64,6 +66,12 @@ public class UserServiceImpl implements UserService {
     public ResultDo addNewUser(User user) {
         ResultDo res = new ResultDo();
         try{
+            String account = "U"+System.currentTimeMillis();
+            user.setAccount(account);
+            user.setRole(UserConstants.USER_CUSTOMER);
+            user.setInternalIp(IpUtil.getIntranetIp());
+            user.setOuterIp(IpUtil.getOuterNetIp());
+            user.setCreateTime(new Date());
             userMapper.insertRecord(user);
             res.setMessage("用户新增成功");
         }catch (Exception e){

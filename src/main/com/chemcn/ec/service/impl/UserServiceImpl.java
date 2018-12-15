@@ -69,8 +69,6 @@ public class UserServiceImpl implements UserService {
             String account = "U"+System.currentTimeMillis();
             user.setAccount(account);
             user.setRole(UserConstants.USER_CUSTOMER);
-            user.setInternalIp(IpUtil.getIntranetIp());
-            user.setOuterIp(IpUtil.getOuterNetIp());
             user.setCreateTime(new Date());
             userMapper.insertRecord(user);
             res.setMessage("用户新增成功");

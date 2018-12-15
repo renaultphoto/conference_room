@@ -1,10 +1,17 @@
 package main.com.chemcn.ec.utils;
 
+import org.apache.commons.lang.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * @Author: zhoujl
@@ -14,7 +21,7 @@ import java.util.Enumeration;
 public class IpUtil {
     private static final String QUERY_ADDRESS = "http://www.icanhazip.com";
     /**
-     * 获取外网ip
+     * 获取本机外网ip
      */
     public static String getOuterNetIp() {
         String result = "";
@@ -49,7 +56,7 @@ public class IpUtil {
 
 
     /**
-     * 获取内网ip
+     * 获取本机内网ip
      */
     public static String getIntranetIp() {
         try {
@@ -57,5 +64,31 @@ public class IpUtil {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    /**
+     * 客户端IP
+     * @param request
+     * @return
+     */
+
+    public static String getClientIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
+
+        public static void main(String[] args) {
+        System.out.println("getOuterNetIp"+getOuterNetIp());
+        System.out.println("getIntranetIp"+getIntranetIp());
+
     }
 }

@@ -1,6 +1,7 @@
 package main.com.chemcn.ec.controller;
 
 import main.com.chemcn.ec.bo.res.ReservationListRes;
+import main.com.chemcn.ec.utils.IpUtil;
 import main.com.chemcn.ec.utils.StringToDateConverter;
 import main.com.chemcn.ec.entity.*;
 import main.com.chemcn.ec.service.ReservationService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -101,7 +103,7 @@ public class PublicController {
      */
     @RequestMapping(value = "showRecordTable", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> showRecordTable()  {
+    public Map<String, Object> showRecordTable(HttpServletRequest request)  {
         StringToDateConverter covert = new StringToDateConverter();
         Map<String, Object>  map = new HashMap<String, Object>();
         ReservationListRes res = new ReservationListRes();
@@ -121,6 +123,11 @@ public class PublicController {
             listTemp.add(vVo);
         }
         map.put("list",listTemp);
+        try {
+            System.out.println("getClientIpAddr"+IpUtil.getClientIpAddr( request));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return map;
     }
 

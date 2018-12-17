@@ -6,14 +6,17 @@ import main.com.chemcn.ec.entity.User;
 import main.com.chemcn.ec.pojo.ResultDo;
 import main.com.chemcn.ec.service.UserService;
 import main.com.chemcn.ec.utils.HttpRequest;
+import main.com.chemcn.ec.utils.IpUtil;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +33,17 @@ public class ApiUserController {
     /**用户服务*/
     @Autowired
     public UserService userService;
+
+    //小程序唯一标识   (在微信小程序管理后台获取)
+
+    @Value("${weixin.wxspAppid}")
+    private String wxspAppid;
+    //小程序的 app secret (在微信小程序管理后台获取)
+    @Value("${weixin.wxspSecret}")
+    private String wxspSecret;
+    //授权（必填）
+    @Value("${weixin.grant_type}")
+    private String grant_type ;
 
     /**
      * 查询会员信息
@@ -66,7 +80,7 @@ public class ApiUserController {
      */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public Map decodeUserInfo(String code) {
+    public Map decodeUserInfo(String code, HttpServletRequest request) {
 
         Map map = new HashMap();
         //登录凭证不能为空
@@ -75,17 +89,6 @@ public class ApiUserController {
             map.put("msg", "code 不能为空");
             return map;
         }
-
-        //小程序唯一标识   (在微信小程序管理后台获取)
-        String wxspAppid = "";
-        //小程序的 app secret (在微信小程序管理后台获取)
-        String wxspSecret = "";
-        //授权（必填）
-        String grant_type = "";
-
-
-
-
         //////////////// 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid ////////////////
         //请求参数
         String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code + "&grant_type=" + grant_type;
@@ -122,6 +125,7 @@ public class ApiUserController {
             user.setOpenid(openid);
             user.setSessionKey(session_key);
             user.setPassword("111111");
+            user.setOuterIp(IpUtil.getClientIpAddr(request));
             userService.addNewUser(user);
             map.put("userInfo", userInfo);
             userInfo.put("openid", openid);

@@ -11,7 +11,7 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--加载配置文件-->
-    <context:property-placeholder location="classpath:db.properties"/>
+    <context:property-placeholder location="classpath:db.properties,classpath:weixin.properties"/>
 
     <!--使用bean标签  id必须唯一  class后面加的是具体的实现类(不是接口)的全路径-->
     <!--Druid连接池配置-->

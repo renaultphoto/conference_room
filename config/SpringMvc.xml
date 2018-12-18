@@ -19,9 +19,14 @@
     <!--配置@Controller注解扫描-->
     <context:component-scan base-package="main.com.chemcn.ec.controller"></context:component-scan>
 
+    <!--加载配置文件-->
+    <context:property-placeholder location="classpath:*.properties"/>
+
     <!--注解驱动：
         自动配置最新版的注解的处理器映射器和处理器适配器-->
     <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+
+
 
     <!--配置视图解析器:
         作用:在Controller中指定页面路径的时候就不用写页面的完整路径名和扩展名称了-->

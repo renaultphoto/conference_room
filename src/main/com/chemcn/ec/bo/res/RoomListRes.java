@@ -2,6 +2,7 @@ package main.com.chemcn.ec.bo.res;
 
 import main.com.chemcn.ec.entity.Room;
 import main.com.chemcn.ec.pojo.ResultDo;
+import main.com.chemcn.ec.vo.RoomVo;
 
 import java.util.List;
 
@@ -14,13 +15,13 @@ public class RoomListRes extends ResultDo {
 
     private static final long serialVersionUID = 1L;
 
-    private List<Room> list;
+    private List<RoomVo> list;
 
-    public List<Room> getList() {
+    public List<RoomVo> getList() {
         return list;
     }
 
-    public void setList(List<Room> list) {
+    public void setList(List<RoomVo> list) {
         this.list = list;
     }
 }

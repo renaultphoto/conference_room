@@ -214,7 +214,7 @@
 		count(*) from reservation
 		<where>
 			1 = 1
-			<![CDATA[ and  a.endtime < NOW() ]]>
+			<![CDATA[ and  a.begintime < NOW() ]]>
 			<if test="id!=null and id!=''">and  id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  user_id=#{userId}</if>
@@ -308,7 +308,7 @@
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
 				1 = 1
-			<![CDATA[ and  a.begintime > NOW()]]>
+			<![CDATA[ and  a.endtime > NOW()]]>
 			<if test="id!=null and id!=''">and  a.id=#{id}</if>
 			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
 			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>

@@ -45,6 +45,30 @@ public class ApiUserController {
     @Value("${weixin.grant_type}")
     private String grant_type ;
 
+    public String getWxspAppid() {
+        return wxspAppid;
+    }
+
+    public void setWxspAppid(String wxspAppid) {
+        this.wxspAppid = wxspAppid;
+    }
+
+    public String getWxspSecret() {
+        return wxspSecret;
+    }
+
+    public void setWxspSecret(String wxspSecret) {
+        this.wxspSecret = wxspSecret;
+    }
+
+    public String getGrant_type() {
+        return grant_type;
+    }
+
+    public void setGrant_type(String grant_type) {
+        this.grant_type = grant_type;
+    }
+
     /**
      * 查询会员信息
      * @param user

@@ -1,10 +1,15 @@
 package main.com.chemcn.ec.service.impl;
 
 import main.com.chemcn.ec.bo.res.RoomListRes;
+import main.com.chemcn.ec.constants.ReservationConstants;
 import main.com.chemcn.ec.dao.RoomMapper;
+import main.com.chemcn.ec.dao.customized.ReservationExtMapper;
+import main.com.chemcn.ec.entity.ReservationCustom;
+import main.com.chemcn.ec.utils.BeanUtil;
 import main.com.chemcn.ec.vo.PagingVO;
 import main.com.chemcn.ec.entity.Room;
 import main.com.chemcn.ec.service.RoomService;
+import main.com.chemcn.ec.vo.RoomVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +23,9 @@ import java.util.List;
 public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomMapper roomMapper;
+
+    @Autowired
+    private ReservationExtMapper reservationExtMapper;
 
  /*   @Override
     public Integer roomCount() {
@@ -66,9 +74,21 @@ public class RoomServiceImpl implements RoomService {
         RoomListRes res = new RoomListRes();
         Room room = new Room();
         List<Room> list =new ArrayList<Room>();
+        List<RoomVo> voList =new ArrayList<RoomVo>();
         try {
             list = roomMapper.findRecords(room.toHashMap());
-            res.setList(list);
+            for(Room roomEntity :list){
+                RoomVo vo = new RoomVo();
+                BeanUtil.copyProperties(roomEntity,vo);
+                ReservationCustom reservation = new ReservationCustom();
+                reservation.setRoomId(roomEntity.getId());
+                List<ReservationCustom> reservationList = reservationExtMapper.findRecordsWithOnMeeting(reservation);
+                if(reservationList.size()>0){
+                    vo.setOnMeeting(ReservationConstants.RESERVATION_ONMEETING_);
+                }
+                voList.add(vo);
+            }
+            res.setList(voList);
         }catch (Exception e){
             res.setSuccess(false);
             res.setMessage("查找会议室失败");

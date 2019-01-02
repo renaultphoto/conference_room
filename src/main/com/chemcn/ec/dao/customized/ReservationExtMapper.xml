@@ -330,13 +330,11 @@
 		order by a.begintime
 	</select>
 
-	<select id="findRecordsWithNotStartedByPage"  resultType="main.com.chemcn.ec.entity.ReservationCustom">
+	<select id="findRecordsWithNotFinishByPage"  resultType="main.com.chemcn.ec.entity.ReservationCustom"  parameterType="hashmap">
 		select
 		a.id as "id"
-		,   a.room_id as "roomId"
+		,  a.room_id as "roomId"
 		,   a.user_id as "userId"
-		,   u.nick_name as "nickName"
-		,   r.room_name as "roomName"
 		,   a.mobile as "mobile"
 		,   a.meetting_title as "meettingTitle"
 		,   a.attend_person as "attendPerson"
@@ -348,55 +346,52 @@
 		,   a.extend1 as "extend1"
 		,   a.extend2 as "extend2"
 		,   a.extend3 as "extend3"
+		,   a.initiator as "initiator"
+		,   a.meeting_type as "meetingType"
+		,   a.period as "period"
+		,   u.nick_name as "nickName"
+		,   r.room_name as "roomName"
+		,   r.equipment as "equipment"
 		FROM reservation a
 		LEFT JOIN room r on a.room_id=r.id
 		LEFT JOIN user u on u.id=a.user_id
 		<where>
 			1 = 1
-			<![CDATA[ and  a.begintime > NOW() ]]>
-			<if test="reservationCustom.id!=null and reservationCustom.id!=''">and  a.id=#{reservationCustom.id}</if>
-			<if test="reservationCustom.roomId!=null and reservationCustom.roomId!=''">and  a.room_id=#{reservationCustom.roomId}</if>
-			<if test="reservationCustom.userId!=null and reservationCustom.userId!=''">and  a.user_id=#{reservationCustom.userId}</if>
-			<if test="reservationCustom.nickName!=null and reservationCustom.nickName!=''">and   u.nick_name=#{reservationCustom.nickName}</if>
-			<if test="reservationCustom.roomName!=null and reservationCustom.roomName!=''">and  r.room_name=#{reservationCustom.roomName}</if>
-			<if test="reservationCustom.mobile!=null and reservationCustom.mobile!=''">and  a.mobile=#{reservationCustom.mobile}</if>
-			<if test="reservationCustom.meettingTitle!=null and reservationCustom.meettingTitle!=''">and  a.meetting_title=#{reservationCustom.meettingTitle}</if>
-			<if test="reservationCustom.attendPerson!=null and reservationCustom.attendPerson!=''">and  a.attend_person=#{reservationCustom.attendPerson}</if>
-			<if test="reservationCustom.meettingContent!=null and reservationCustom.meettingContent!=''">and  a.meetting_content=#{reservationCustom.meettingContent}</if>
-			<if test="reservationCustom.begintime!=null and reservationCustom.begintime!=''">and  a.begintime=#{reservationCustom.begintime}</if>
-			<if test="reservationCustom.endtime!=null and reservationCustom.endtime!=''">and  a.endtime=#{reservationCustom.endtime}</if>
-			<if test="reservationCustom.reservationDate!=null and reservationCustom.reservationDate!=''">and  a.reservation_date=#{reservationCustom.reservationDate}</if>
-			<if test="reservationCustom.status!=null and reservationCustom.status!=''">and  a.status=#{reservationCustom.status}</if>
-			<if test="reservationCustom.extend1!=null and reservationCustom.extend1!=''">and  a.extend1=#{reservationCustom.extend1}</if>
-			<if test="reservationCustom.extend2!=null and reservationCustom.extend2!=''">and  a.extend2=#{reservationCustom.extend2}</if>
-			<if test="reservationCustom.extend3!=null and reservationCustom.extend3!=''">and  a.extend3=#{reservationCustom.extend3}</if>
+			<![CDATA[ and  a.endtime > NOW() ]]>
+			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
+			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
+			<if test="mobile!=null and mobile!=''">and  a.mobile  like "%"#{mobile}"%"</if>
+			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title like "%"#{meettingTitle}"%"</if>
+			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person like "%"#{attendPerson}"%"</if>
+			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content like "%"#{meettingContent}"%"</if>
+			<if test="status!=null and status!=''">and  a.status=#{status}</if>
+			<if test="initiator!=null and initiator!=''">and  a.initiator like "%"#{initiator}"%"</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name like "%"#{nickName}"%"</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name like "%"#{roomName}"%"</if>
 		</where>
-		limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
+		limit #{toPageNo}, #{pageSize}
 	</select>
 
 
-	<select id="countRecordsWithNotStarted" resultType="int" parameterType="hashmap">
+	<select id="countRecordsWithNotFinish" resultType="int" parameterType="hashmap">
 		select
 		count(*) from reservation
 		<where>
 			1 = 1
-			<![CDATA[ and  a.begintime > NOW() ]]>
-			<if test="id!=null and id!=''">and  id=#{id}</if>
-			<if test="roomId!=null and roomId!=''">and  room_id=#{roomId}</if>
-			<if test="userId!=null and userId!=''">and  user_id=#{userId}</if>
-			<if test="mobile!=null and mobile!=''">and  mobile=#{mobile}</if>
-			<if test="meettingTitle!=null and meettingTitle!=''">and  meetting_title=#{meettingTitle}</if>
-			<if test="attendPerson!=null and attendPerson!=''">and  attend_person=#{attendPerson}</if>
-			<if test="meettingContent!=null and meettingContent!=''">and  meetting_content=#{meettingContent}</if>
-			<if test="begintime!=null and begintime!=''">and  begintime=#{begintime}</if>
-			<if test="endtime!=null and endtime!=''">and  endtime=#{endtime}</if>
-			<if test="reservationDate!=null and reservationDate!=''">and  reservation_date=#{reservationDate}</if>
-			<if test="status!=null and status!=''">and  status=#{status}</if>
-			<if test="extend1!=null and extend1!=''">and  extend1=#{extend1}</if>
-			<if test="extend2!=null and extend2!=''">and  extend2=#{extend2}</if>
-			<if test="extend3!=null and extend3!=''">and  extend3=#{extend3}</if>
+			<![CDATA[ and  a.endtime > NOW() ]]>
+			<if test="roomId!=null and roomId!=''">and  a.room_id=#{roomId}</if>
+			<if test="userId!=null and userId!=''">and  a.user_id=#{userId}</if>
+			<if test="mobile!=null and mobile!=''">and  a.mobile  like "%"#{mobile}"%"</if>
+			<if test="meettingTitle!=null and meettingTitle!=''">and  a.meetting_title like "%"#{meettingTitle}"%"</if>
+			<if test="attendPerson!=null and attendPerson!=''">and  a.attend_person like "%"#{attendPerson}"%"</if>
+			<if test="meettingContent!=null and meettingContent!=''">and  a.meetting_content like "%"#{meettingContent}"%"</if>
+			<if test="status!=null and status!=''">and  a.status=#{status}</if>
+			<if test="initiator!=null and initiator!=''">and  a.initiator like "%"#{initiator}"%"</if>
+			<if test="nickName!=null and nickName!=''">and   u.nick_name like "%"#{nickName}"%"</if>
+			<if test="roomName!=null and roomName!=''">and  r.room_name like "%"#{roomName}"%"</if>
 		</where>
 	</select>
+
 	<select id="findConfilctRoom" parameterType="main.com.chemcn.ec.entity.ReservationCustom" resultType="main.com.chemcn.ec.entity.ReservationCustom">
 		select
 		a.id as "id"

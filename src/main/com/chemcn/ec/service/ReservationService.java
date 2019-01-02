@@ -1,6 +1,8 @@
 package main.com.chemcn.ec.service;
 
+import main.com.chemcn.ec.bo.req.ReservationNotFinishReq;
 import main.com.chemcn.ec.bo.res.ReservationListRes;
+import main.com.chemcn.ec.bo.res.ReservationNotFinishRes;
 import main.com.chemcn.ec.bo.res.ReservationTodayListRes;
 import main.com.chemcn.ec.entity.ReservationCustom;
 import main.com.chemcn.ec.pojo.ResultDo;
@@ -59,4 +61,10 @@ public interface ReservationService {
      */
     public ReservationTodayListRes findTodayReservationListByRoom(ReservationCustom reservationCustom);
 
+    /**
+     * PC端查询所有未开始和会议中的列表
+     * @param reservationNotFinishReq
+     * @return
+     */
+    public ReservationNotFinishRes findReservationNotFinish(ReservationNotFinishReq reservationNotFinishReq);
 }

@@ -66,17 +66,17 @@ public interface ReservationExtMapper {
 	 */
 	public List<ReservationCustom> findRecordsWithNotStarted(ReservationCustom reservationCustom);
 	/**
-	 * 分页查询未开始所有的预定会议信息
-	 * @param pagingVO,reservation
+	 * 分页查询未开始以及会议中所有的预定会议信息
+	 * @param map
 	 * @return
 	 */
-	public List<ReservationCustom> findRecordsWithNotStartedByPage(@Param("pagingVO") PagingVO pagingVO, @Param("reservationCustom") ReservationCustom reservationCustom);
+	public List<ReservationCustom> findRecordsWithNotFinishByPage(HashMap<String,Object> map);
 
 	/**
-	 * 统计未开始所有预定会议信息条数
+	 * 统计未开始以及会议中所有预定会议信息条数
 	 * @return
 	 */
-	public Integer countRecordsWithNotStarted(HashMap<String,Object> map);
+	public Integer countRecordsWithNotFinish(HashMap<String,Object> map);
 
 	/**
 	 * 查询时间冲突的会议室

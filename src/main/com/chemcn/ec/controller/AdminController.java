@@ -1,5 +1,8 @@
 package main.com.chemcn.ec.controller;
 
+import com.alibaba.fastjson.JSON;
+import main.com.chemcn.ec.bo.req.ReservationNotFinishReq;
+import main.com.chemcn.ec.bo.res.ReservationNotFinishRes;
 import main.com.chemcn.ec.entity.*;
 import main.com.chemcn.ec.service.ReservationService;
 import main.com.chemcn.ec.service.UserService;
@@ -30,7 +33,7 @@ public class AdminController {
     @Resource(name = "userServiceImpl")
     private UserService userService;
 
-  /*  *//*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<会议室信息管理>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*//*
+   /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<会议室信息管理>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     // 会议室信息显示
     @RequestMapping("/showRoom")
     public String showRoom(Model model, Integer page) throws Exception {
@@ -39,7 +42,7 @@ public class AdminController {
         //页码对象
         PagingVO pagingVO = new PagingVO();
         //设置总页数
-        pagingVO.setTotalCount(roomService.roomCount());
+        //pagingVO.setTotalCount(roomService.roomCount());
         if (page == null || page == 0) {
             pagingVO.setToPageNo(1);
             list = roomService.findByPaging(1);
@@ -53,7 +56,7 @@ public class AdminController {
 
         return "/admin/showRoom";
     }
-
+/**
     //搜索会议室
     @RequestMapping(value = "/queryRoom", method = {RequestMethod.POST})
     private String queryRoom(String findByName, Model model) throws Exception {
@@ -154,28 +157,7 @@ public class AdminController {
         return "redirect:/admin/showReservation";
     }
 
-    //查询所有审核通过预约记录
-    @RequestMapping("/showRecord")
-    public String findRecord(Model model,Integer page) throws Exception{
-        List<ReservationVo> list = null;
 
-        //页码对象
-        PagingVO pagingVO = new PagingVO();
-        //设置总页数
-        pagingVO.setTotalCount(reservationService.reservationPassCount());
-        if (page == null || page == 0) {
-            pagingVO.setToPageNo(1);
-            list = reservationService.findRecord(1);
-        } else {
-            pagingVO.setToPageNo(page);
-            list = reservationService.findRecord(page);
-        }
-
-        model.addAttribute("recordList", list);
-        model.addAttribute("pagingVo", pagingVO);
-
-        return "/admin/showRecord";
-    }
 
     *//*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<用户信息管理>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*//*
     //添加新用户
@@ -191,4 +173,33 @@ public class AdminController {
         }
         return "redirect:/admin/userRegister";
     }*/
+
+    /**
+     * 分页查询会议中以及未开始的预约记录
+     * @param model
+     * @param page
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/showRecord")
+public String findRecord(Model model,Integer page,String jsonParam){
+
+    List<ReservationCustom> list = null;
+    //页码对象
+    PagingVO pagingVO = new PagingVO();
+
+    ReservationNotFinishReq req = new ReservationNotFinishReq();
+    req = JSON.parseObject(jsonParam, ReservationNotFinishReq.class);
+    if (page == null || page == 0) {
+        req.setToPageNo(1);
+    } else {
+        req.setToPageNo(page);
+    }
+    ReservationNotFinishRes res = reservationService.findReservationNotFinish(req);
+    //设置总页数
+    pagingVO.setTotalCount(res.getTotal());
+    model.addAttribute("recordList", list);
+    model.addAttribute("pagingVo", pagingVO);
+    return "/admin/showRecord";
+}
 }

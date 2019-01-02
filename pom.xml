@@ -200,7 +200,12 @@
       <version>RELEASE</version>
     </dependency>
 
-
+    <!--导入lombok-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.8</version>
+    </dependency>
     <!--导入Servlet-->
    <!-- <dependency>
       <groupId>javax.servlet</groupId>

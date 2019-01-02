@@ -1,6 +1,8 @@
 package main.com.chemcn.ec.service.impl;
 
+import main.com.chemcn.ec.bo.req.ReservationNotFinishReq;
 import main.com.chemcn.ec.bo.res.ReservationListRes;
+import main.com.chemcn.ec.bo.res.ReservationNotFinishRes;
 import main.com.chemcn.ec.bo.res.ReservationTodayListRes;
 import main.com.chemcn.ec.dao.ReservationMapper;
 import main.com.chemcn.ec.dao.customized.ReservationExtMapper;
@@ -233,6 +235,33 @@ public class ReservationServiceImpl implements ReservationService {
             res.setMessage("查询预定信息成功");
             res.setList(list);
             res.setPeriods(periods);
+        }catch (Exception e){
+            res.setMessage("查询信息失败");
+            res.setCode(404);
+            res.setSuccess(false);
+        }
+        return res;
+    }
+
+    /**
+     * PC端查询所有未开始和会议中的列表
+     *
+     * @param reservationNotFinishReq
+     * @return
+     */
+    @Override
+    public ReservationNotFinishRes findReservationNotFinish(ReservationNotFinishReq reservationNotFinishReq) {
+        ReservationNotFinishRes res = new ReservationNotFinishRes();
+        Integer total = 0;
+        try {
+            reservationNotFinishReq.setStatus(ReservationConstants.RESERVATION_ORDER);
+            List<ReservationCustom> list =  rservationExtMapper.findRecordsWithNotFinishByPage(reservationNotFinishReq.toHashMap());
+            total = rservationExtMapper.countRecordsWithNotFinish(reservationNotFinishReq.toHashMap());
+            res.setList(list);
+            res.setTotal(total);
+            res.setMessage("查询信息成功");
+            res.setCode(200);
+            res.setSuccess(true);
         }catch (Exception e){
             res.setMessage("查询信息失败");
             res.setCode(404);
